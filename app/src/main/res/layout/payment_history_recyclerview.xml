@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/admission"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    android:layout_margin="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0dp">
+
+        <TextView
+            android:id="@+id/note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:textSize="16dp"
+            android:text="Admission fee"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/time_and_date_payment_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:text="12/51/2021, 03:25 PM"
+            android:textColor="#636363"
+            android:textSize="12sp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/note"
+            app:layout_constraintTop_toBottomOf="@+id/note" />
+
+        <TextView
+            android:id="@+id/rs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="-427"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/note"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/note" />
+
+        <ImageView
+            android:id="@+id/failed_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone"
+            
+            app:layout_constraintBottom_toBottomOf="@+id/failed_tv"
+            app:layout_constraintEnd_toStartOf="@+id/failed_tv"
+            app:layout_constraintTop_toTopOf="@+id/failed_tv"
+            app:srcCompat="@drawable/circle" />
+
+        <TextView
+            android:id="@+id/failed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FAILED"
+            android:textColor="#FF414D"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/time_and_date_payment_history"
+            app:layout_constraintEnd_toEndOf="@+id/rs"
+            app:layout_constraintStart_toStartOf="@+id/rs"
+            app:layout_constraintTop_toTopOf="@+id/time_and_date_payment_history" />
+
+        <TextView
+            android:id="@+id/failed_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="FAILED"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:textColor="#FF414D"
+            app:layout_constraintStart_toStartOf="@+id/rs"
+            app:layout_constraintTop_toBottomOf="@+id/rs" />
+
+        <TextView
+            android:id="@+id/refund_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="REFUNDED"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:textColor="#FF414D"
+            android:textSize="10dp"
+            app:layout_constraintStart_toStartOf="@+id/rs"
+            app:layout_constraintTop_toBottomOf="@+id/rs"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

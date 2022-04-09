@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homePage">
+
+    <fragment
+        android:id="@+id/homePage"
+        android:name="com.example.wallet.HomePage"
+        android:label="fragment_home_page"
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePage_to_completeKycDetails2"
+            app:destination="@id/completeKycDetails2" />
+    </fragment>
+    <fragment
+        android:id="@+id/completeKycDetails2"
+        android:name="com.example.wallet.Fragmets.CompleteKycDetails"
+        android:label="fragment_complete_kyc_details2"
+        tools:layout="@layout/fragment_complete_kyc_details" >
+        <action
+            android:id="@+id/action_completeKycDetails2_to_kycAddressStep2"
+            app:destination="@id/kycAddressStep2" />
+    </fragment>
+    <fragment
+        android:id="@+id/kycAddressStep2"
+        android:name="com.example.wallet.Fragmets.KycAddressStep"
+        android:label="fragment_kyc_address_step"
+        tools:layout="@layout/fragment_kyc_address_step" >
+        <action
+            android:id="@+id/action_kycAddressStep2_to_panDetails"
+            app:destination="@id/panDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/panDetails"
+        android:name="com.example.wallet.Fragmets.PanDetails"
+        android:label="fragment_pan_details"
+        tools:layout="@layout/fragment_pan_details" >
+        <action
+            android:id="@+id/action_panDetails_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
+</navigation>

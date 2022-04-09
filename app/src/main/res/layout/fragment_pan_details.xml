@@ -1,0 +1,1132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragmets.PanDetails">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+
+            android:gravity="center_horizontal"
+
+
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/backArrow_remaing_kvc_step_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+
+                app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+
+            <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+
+                android:text="Complete your KYC"
+
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+
+        <LinearLayout
+            android:id="@+id/cons1"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <TextView
+                android:id="@+id/basic_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_weight=".1"
+                android:layout_marginTop="3dp"
+
+                android:layout_marginBottom="3dp"
+                android:text="Basic Information"
+                android:textColor="#594099"
+                android:textSize="10dp"
+                />
+
+            <View
+                android:id="@+id/viewTwo"
+                android:layout_width="0dp"
+                android:layout_weight="01"
+                android:layout_height="3dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="6dp"
+
+                android:background="#594099"
+                />
+
+            <TextView
+                android:id="@+id/contect_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight=".1"
+                android:textColor="#594099"
+                android:text="Contact Details"
+
+                android:textSize="10dp"
+                />
+
+            <View
+                android:id="@+id/viewThree"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="6dp"
+                android:layout_height="3sp"
+
+
+
+                android:layout_marginStart="8dp"
+                android:background="#594099"
+                />
+
+            <TextView
+                android:id="@+id/documents_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".1"
+                android:textColor="#594099"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="18dp"
+                android:text="Documents"
+                android:textSize="10dp"
+                />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:fillViewport="true"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/cons1"
+            tools:layout_editor_absoluteX="16dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content"
+               >
+
+
+                <TextView
+                    android:id="@+id/gender_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Address Proof"
+
+                    android:textColor="#636363"
+
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                        android:id="@+id/gender_"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:padding="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/gender_tv"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginHorizontal="18dp"
+                        android:background="@drawable/stroke_box"
+                        android:text="Aadhaar"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+
+
+                        />
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/option_for_proof"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight=".1"-->
+
+<!--                        app:srcCompat="@drawable/ic_baseline_arrow_drop_down_24" />-->
+
+<!--                </LinearLayout>-->
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/gender_"
+                    android:id="@+id/for_proff">
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/aadhar_proof_constraint"
+                        android:visibility="visible"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@+id/gender_">
+
+
+                        <TextView
+
+                            android:id="@+id/adhar_number_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Aadhaar number"
+                            android:textColor="#636363"
+                            android:textSize="12dp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="14dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+                        <EditText
+                            android:id="@+id/aadhar_num_editText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="18dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="18dp"
+                            android:background="@drawable/stroke_box"
+                            android:hint="Enter Aadhaar number"
+                            android:padding="12dp"
+
+
+                            android:textColor="@color/black"
+
+                            android:textSize="14dp"
+                            android:textStyle="bold"
+                            app:layout_constraintTop_toBottomOf="@+id/adhar_number_text"
+                            tools:layout_editor_absoluteX="18dp" />
+
+                        <TextView
+
+                            android:id="@+id/front_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="32dp"
+                            android:text="Aadhaar front"
+                            android:textColor="#636363"
+                            android:layout_marginStart="18dp"
+                            android:textSize="12dp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="@+id/adhar_number_text"
+                            app:layout_constraintTop_toBottomOf="@+id/aadhar_num_editText" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/aadhar_front_image_layout"
+                            android:layout_width="match_parent"
+
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="16dp"
+                            android:visibility="visible"
+
+                            android:background="@drawable/dotshape"
+                            android:orientation="horizontal"
+                            android:padding="10dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/front_text">
+
+                            <ImageView
+                                android:id="@+id/imageView5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="84dp"
+                                android:src="@drawable/ic_baseline_insert_drive_file_24"
+                                app:layout_constraintBottom_toBottomOf="@+id/click_to_upload_tv"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/click_to_upload_tv"
+                                app:layout_constraintVertical_bias="0.0" />
+
+                            <TextView
+                                android:id="@+id/click_to_upload_tv"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_weight="0.1"
+                                android:gravity="start"
+                                android:text="Click to Upload"
+                                android:textColor="#1089FF"
+                                android:textStyle="bold"
+
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                       <androidx.constraintlayout.widget.ConstraintLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:id="@+id/front_view_image"
+                           android:layout_marginHorizontal="18dp"
+                           android:padding="5dp"
+                           android:visibility="gone"
+                           android:layout_marginVertical="12dp">
+
+                           <ImageView
+                               android:id="@+id/imageView6"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:layout_marginStart="18dp"
+                               android:layout_marginTop="11dp"
+                               android:layout_marginBottom="10dp"
+                               android:src="@drawable/ic_baseline_file_open_24"
+                               app:layout_constraintBottom_toBottomOf="parent"
+                               app:layout_constraintStart_toStartOf="parent"
+                               app:layout_constraintTop_toTopOf="parent" />
+
+                           <TextView
+                               android:id="@+id/front_view_tv"
+                               android:layout_width="wrap_content"
+                               android:layout_height="match_parent"
+                               android:layout_marginStart="16dp"
+                               android:layout_marginBottom="5dp"
+                               android:text="CLICK TO VIEW FILE"
+                               android:textColor="#1089FF"
+                               android:textSize="14dp"
+                               android:textStyle="bold"
+                               app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                               app:layout_constraintStart_toEndOf="@+id/imageView6"
+                               app:layout_constraintTop_toTopOf="@+id/imageView6" />
+
+                           <ImageView
+                               android:layout_width="22dp"
+                               android:layout_height="22dp"
+                               android:src="@drawable/close"
+                               android:id="@+id/delete_front"
+                               android:layout_marginEnd="20dp"
+                               app:layout_constraintBottom_toBottomOf="@+id/front_view_tv"
+                               app:layout_constraintEnd_toEndOf="parent"
+                               app:layout_constraintTop_toTopOf="@+id/front_view_tv" />
+
+                       </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        <TextView
+                            android:id="@+id/back_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="32dp"
+                            android:text="Aadhaar back"
+                            android:textColor="#636363"
+                            android:textSize="12dp"
+                            android:layout_marginStart="18dp"
+                            android:textStyle="bold"
+
+                            app:layout_constraintStart_toStartOf="@+id/front_text"
+                            app:layout_constraintTop_toBottomOf="@+id/aadhar_front_image_layout" />/>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/addhar_back_proff"
+                            android:layout_width="match_parent"
+                            android:visibility="visible"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="10dp"
+
+
+                            android:background="@drawable/dotshape"
+                            android:orientation="horizontal"
+                            android:padding="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/back_text">
+
+                            <ImageView
+                                android:id="@+id/file_imageView33"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="84dp"
+                                android:src="@drawable/ic_baseline_insert_drive_file_24"
+                                app:layout_constraintBottom_toBottomOf="@+id/click_to_upload_back_tv_"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/click_to_upload_back_tv_"
+                                app:layout_constraintVertical_bias="1.0" />
+
+                            <TextView
+                                android:id="@+id/click_to_upload_back_tv_"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginEnd="133dp"
+                                android:gravity="start"
+                                android:text="Click to Upload"
+                                android:textColor="#1089FF"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/file_imageView33"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/back_view_image"
+                            android:visibility="gone"
+                            android:layout_marginHorizontal="18dp"
+                            android:padding="5dp"
+                            android:layout_marginVertical="12dp">
+
+                            <ImageView
+                                android:id="@+id/imageView7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="18dp"
+                                android:layout_marginTop="11dp"
+                                android:layout_marginBottom="10dp"
+                                android:src="@drawable/ic_baseline_file_open_24"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/back_view_tv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginBottom="5dp"
+                                android:text="CLICK TO VIEW FILE"
+                                android:textColor="#1089FF"
+                                android:textSize="14dp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                                app:layout_constraintStart_toEndOf="@+id/imageView7"
+                                app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:src="@drawable/close"
+                                android:id="@+id/delete_back"
+                                android:layout_marginEnd="20dp"
+                                app:layout_constraintBottom_toBottomOf="@+id/back_view_tv"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/back_view_tv" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </LinearLayout>
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:id="@+id/drving_proof_constraint"-->
+<!--                        android:visibility="gone"-->
+
+<!--                        app:layout_constraintTop_toBottomOf="@+id/linearLayout_gender">-->
+
+
+<!--                        <TextView-->
+
+<!--                            android:id="@+id/textView22"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:text="Driving Lic number"-->
+<!--                            android:textColor="#636363"-->
+<!--                            android:textSize="12dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:layout_marginTop="14dp"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+
+
+
+<!--                        <EditText-->
+<!--                            android:id="@+id/Voter_num_editText"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="18dp"-->
+<!--                            android:layout_marginTop="12dp"-->
+<!--                            android:layout_marginEnd="18dp"-->
+<!--                            android:background="@drawable/stroke_box"-->
+<!--                            android:hint="Enter lic number"-->
+<!--                            android:padding="12dp"-->
+
+
+<!--                            android:textColor="@color/black"-->
+
+<!--                            android:textSize="14dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView22"-->
+<!--                            tools:layout_editor_absoluteX="18dp" />-->
+
+<!--                        <TextView-->
+
+<!--                            android:id="@+id/textView23"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="32dp"-->
+<!--                            android:text="Driving front"-->
+<!--                            android:textColor="#636363"-->
+<!--                            android:textSize="12dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/textView22"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/Voter_num_editText" />-->
+
+<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                            android:id="@+id/driving_front_image_layout"-->
+<!--                            android:layout_width="match_parent"-->
+
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_marginTop="12dp"-->
+<!--                            android:layout_marginEnd="16dp"-->
+<!--                            android:background="@drawable/dotshape"-->
+
+
+<!--                            android:orientation="horizontal"-->
+<!--                            android:padding="10dp"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView23">-->
+
+<!--                            <ImageView-->
+<!--                                android:id="@+id/imageView21"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="84dp"-->
+<!--                                android:src="@drawable/ic_baseline_insert_drive_file_24"-->
+<!--                                app:layout_constraintBottom_toBottomOf="@+id/click_to_upload_tv_voter"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintTop_toTopOf="@+id/click_to_upload_tv_voter"-->
+<!--                                app:layout_constraintVertical_bias="0.0" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/click_to_upload_tv_voter"-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="5dp"-->
+<!--                                android:layout_weight="0.1"-->
+<!--                                android:gravity="start"-->
+<!--                                android:text="Click to Upload"-->
+<!--                                android:textColor="#1089FF"-->
+<!--                                android:textStyle="bold"-->
+
+<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                                app:layout_constraintStart_toEndOf="@+id/imageView21"-->
+<!--                                app:layout_constraintTop_toTopOf="parent" />-->
+
+
+
+<!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView26"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Driving back"-->
+<!--                            android:textColor="#636363"-->
+<!--                            android:textSize="12dp"-->
+<!--                            android:layout_marginTop="16dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/textView23"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/driving_front_image_layout" />-->
+
+<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                            android:id="@+id/linearLayout_for_driving"-->
+<!--                            android:layout_width="match_parent"-->
+
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_marginTop="12dp"-->
+<!--                            android:layout_marginEnd="16dp"-->
+<!--                            android:background="@drawable/dotshape"-->
+
+
+<!--                            android:orientation="horizontal"-->
+<!--                            android:padding="10dp"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView26">-->
+
+<!--                            <ImageView-->
+<!--                                android:id="@+id/file_imageView"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="84dp"-->
+<!--                                android:src="@drawable/ic_baseline_insert_drive_file_24"-->
+<!--                                app:layout_constraintBottom_toBottomOf="@+id/click_to_upload_back_tv"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintTop_toTopOf="@+id/click_to_upload_back_tv"-->
+<!--                                app:layout_constraintVertical_bias="1.0" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/click_to_upload_back_tv"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="5dp"-->
+<!--                                android:layout_marginEnd="133dp"-->
+<!--                                android:gravity="start"-->
+<!--                                android:text="Click to Upload"-->
+<!--                                android:textColor="#1089FF"-->
+<!--                                android:textStyle="bold"-->
+<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                                app:layout_constraintStart_toEndOf="@+id/file_imageView"-->
+<!--                                app:layout_constraintTop_toTopOf="parent" />-->
+
+
+<!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:id="@+id/passport_proof_constraint"-->
+<!--                        android:visibility="gone"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/linearLayout_gender">-->
+
+
+<!--                        <TextView-->
+
+<!--                            android:id="@+id/textView42"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:text="passport number"-->
+<!--                            android:textColor="#636363"-->
+<!--                            android:textSize="12dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:layout_marginTop="14dp"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+
+
+
+<!--                        <EditText-->
+<!--                            android:id="@+id/passport_num_editText"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="18dp"-->
+<!--                            android:layout_marginTop="12dp"-->
+<!--                            android:layout_marginEnd="18dp"-->
+<!--                            android:background="@drawable/stroke_box"-->
+<!--                            android:hint="Enter number"-->
+<!--                            android:padding="12dp"-->
+
+
+<!--                            android:textColor="@color/black"-->
+
+<!--                            android:textSize="14dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView42"-->
+<!--                            />-->
+
+<!--                        <TextView-->
+
+<!--                            android:id="@+id/textView43"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="32dp"-->
+<!--                            android:text="passport front"-->
+<!--                            android:textColor="#636363"-->
+<!--                            android:textSize="12dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/textView42"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/passport_num_editText" />-->
+
+<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                            android:id="@+id/passport_front_image_layout"-->
+<!--                            android:layout_width="match_parent"-->
+
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_marginTop="12dp"-->
+<!--                            android:layout_marginEnd="16dp"-->
+<!--                            android:background="@drawable/dotshape"-->
+
+
+<!--                            android:orientation="horizontal"-->
+<!--                            android:padding="10dp"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView43">-->
+
+<!--                            <ImageView-->
+<!--                                android:id="@+id/imageView41"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="84dp"-->
+<!--                                android:src="@drawable/ic_baseline_insert_drive_file_24"-->
+<!--                                app:layout_constraintBottom_toBottomOf="@+id/click_to_upload_tv_passport"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintTop_toTopOf="@+id/click_to_upload_tv_passport"-->
+<!--                                app:layout_constraintVertical_bias="0.0" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/click_to_upload_tv_passport"-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="5dp"-->
+<!--                                android:layout_weight="0.1"-->
+<!--                                android:gravity="start"-->
+<!--                                android:text="Click to Upload"-->
+<!--                                android:textColor="#1089FF"-->
+<!--                                android:textStyle="bold"-->
+
+<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                                app:layout_constraintStart_toEndOf="@+id/imageView41"-->
+<!--                                app:layout_constraintTop_toTopOf="parent" />-->
+
+
+
+<!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView46"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="passport back"-->
+<!--                            android:textColor="#636363"-->
+<!--                            android:textSize="12dp"-->
+<!--                            android:layout_marginTop="16dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/textView43"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/passport_front_image_layout" />-->
+
+<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                            android:id="@+id/linearLayout_for_passport"-->
+<!--                            android:layout_width="match_parent"-->
+
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_marginTop="12dp"-->
+<!--                            android:layout_marginEnd="16dp"-->
+<!--                            android:background="@drawable/dotshape"-->
+
+
+<!--                            android:orientation="horizontal"-->
+<!--                            android:padding="10dp"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView46">-->
+
+<!--                            <ImageView-->
+<!--                                android:id="@+id/file_imageView40"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="84dp"-->
+<!--                                android:src="@drawable/ic_baseline_insert_drive_file_24"-->
+<!--                                app:layout_constraintBottom_toBottomOf="@+id/click_to_upload_back_tv_passport"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintTop_toTopOf="@+id/click_to_upload_back_tv_passport"-->
+<!--                                app:layout_constraintVertical_bias="1.0" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/click_to_upload_back_tv_passport"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="5dp"-->
+<!--                                android:layout_marginEnd="133dp"-->
+<!--                                android:gravity="start"-->
+<!--                                android:text="Click to Upload"-->
+<!--                                android:textColor="#1089FF"-->
+<!--                                android:textStyle="bold"-->
+<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                                app:layout_constraintStart_toEndOf="@+id/file_imageView40"-->
+<!--                                app:layout_constraintTop_toTopOf="parent" />-->
+
+
+<!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:id="@+id/voter_proof_constraint"-->
+<!--                        android:visibility="gone"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/linearLayout_gender">-->
+
+
+<!--                        <TextView-->
+
+<!--                            android:id="@+id/textView32"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:text="Voter number"-->
+<!--                            android:textColor="#636363"-->
+<!--                            android:textSize="12dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:layout_marginTop="14dp"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent" />-->
+
+
+
+
+<!--                        <EditText-->
+<!--                            android:id="@+id/Voterr_num_editText"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="18dp"-->
+<!--                            android:layout_marginTop="12dp"-->
+<!--                            android:layout_marginEnd="18dp"-->
+<!--                            android:background="@drawable/stroke_box"-->
+<!--                            android:hint="Enter number"-->
+<!--                            android:padding="12dp"-->
+
+
+<!--                            android:textColor="@color/black"-->
+
+<!--                            android:textSize="14dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView32"-->
+<!--                            tools:layout_editor_absoluteX="18dp" />-->
+
+<!--                        <TextView-->
+
+<!--                            android:id="@+id/textView33"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="32dp"-->
+<!--                            android:text="voter front"-->
+<!--                            android:textColor="#636363"-->
+<!--                            android:textSize="12dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/textView32"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/Voterr_num_editText" />-->
+
+<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                            android:id="@+id/Voter_front_image_layout"-->
+<!--                            android:layout_width="match_parent"-->
+
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_marginTop="12dp"-->
+<!--                            android:layout_marginEnd="16dp"-->
+<!--                            android:background="@drawable/dotshape"-->
+
+
+<!--                            android:orientation="horizontal"-->
+<!--                            android:padding="10dp"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView33">-->
+
+<!--                            <ImageView-->
+<!--                                android:id="@+id/imageView31"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="84dp"-->
+<!--                                android:src="@drawable/ic_baseline_insert_drive_file_24"-->
+<!--                                app:layout_constraintBottom_toBottomOf="@+id/click_to_upload_tv_voterr"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintTop_toTopOf="@+id/click_to_upload_tv_voterr"-->
+<!--                                app:layout_constraintVertical_bias="0.0" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/click_to_upload_tv_voterr"-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="5dp"-->
+<!--                                android:layout_weight="0.1"-->
+<!--                                android:gravity="start"-->
+<!--                                android:text="Click to Upload"-->
+<!--                                android:textColor="#1089FF"-->
+<!--                                android:textStyle="bold"-->
+
+<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                                app:layout_constraintStart_toEndOf="@+id/imageView31"-->
+<!--                                app:layout_constraintTop_toTopOf="parent" />-->
+
+
+
+<!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/textView36"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="voter back"-->
+<!--                            android:textColor="#636363"-->
+<!--                            android:textSize="12dp"-->
+<!--                            android:layout_marginTop="16dp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            app:layout_constraintStart_toStartOf="@+id/textView33"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/Voter_front_image_layout" />-->
+
+<!--                        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                            android:id="@+id/linearLayout_for_voter"-->
+<!--                            android:layout_width="match_parent"-->
+
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginStart="16dp"-->
+<!--                            android:layout_marginTop="12dp"-->
+<!--                            android:layout_marginEnd="16dp"-->
+<!--                            android:background="@drawable/dotshape"-->
+
+
+<!--                            android:orientation="horizontal"-->
+<!--                            android:padding="10dp"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/textView36">-->
+
+<!--                            <ImageView-->
+<!--                                android:id="@+id/file_imageView30"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="84dp"-->
+<!--                                android:src="@drawable/ic_baseline_insert_drive_file_24"-->
+<!--                                app:layout_constraintBottom_toBottomOf="@+id/click_to_upload_back_tv_voter"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintTop_toTopOf="@+id/click_to_upload_back_tv_voter"-->
+<!--                                app:layout_constraintVertical_bias="1.0" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/click_to_upload_back_tv_voter"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="5dp"-->
+<!--                                android:layout_marginEnd="133dp"-->
+<!--                                android:gravity="start"-->
+<!--                                android:text="Click to Upload"-->
+<!--                                android:textColor="#1089FF"-->
+<!--                                android:textStyle="bold"-->
+<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                                app:layout_constraintStart_toEndOf="@+id/file_imageView30"-->
+<!--                                app:layout_constraintTop_toTopOf="parent" />-->
+
+
+<!--                        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
+                </LinearLayout>
+
+
+                <TextView
+
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="22dp"
+                    android:text="Pan"
+                    android:textColor="#636363"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/for_proff" />
+
+                <EditText
+                    android:id="@+id/pan_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/stroke_box"
+                    android:hint="Enter pan number"
+
+
+                    android:padding="12dp"
+
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="pan front"
+                    android:textColor="#636363"
+                    android:layout_marginStart="18dp"
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+
+                    app:layout_constraintStart_toStartOf="@+id/textView11"
+                    app:layout_constraintTop_toBottomOf="@+id/pan_editText" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/pan_con"
+                    android:layout_width="match_parent"
+                    android:visibility="visible"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/dotshape"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+                    <ImageView
+                        android:id="@+id/file_imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="84dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@drawable/ic_baseline_insert_drive_file_24"
+                        app:layout_constraintBottom_toBottomOf="@+id/pan_front_click_to_uploadtv"
+                        app:layout_constraintEnd_toStartOf="@+id/pan_front_click_to_uploadtv"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/pan_front_click_to_uploadtv" />
+
+                    <TextView
+                        android:id="@+id/pan_front_click_to_uploadtv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="133dp"
+                        android:layout_weight="0.1"
+                        android:gravity="start"
+                        android:text="Click to Upload"
+                        android:textColor="#1089FF"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pan_view_image"
+                    android:visibility="gone"
+                    android:layout_marginHorizontal="18dp"
+                    android:padding="5dp"
+                    android:layout_marginVertical="12dp">
+
+                    <ImageView
+                        android:id="@+id/pan_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/ic_baseline_file_open_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/pan_view_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="CLICK TO VIEW FILE"
+                        android:textColor="#1089FF"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/pan_view"
+                        app:layout_constraintStart_toEndOf="@+id/pan_view"
+                        app:layout_constraintTop_toTopOf="@+id/pan_view" />
+
+                    <ImageView
+                        android:id="@+id/delete_pan"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/close"
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/pan_view_tv"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/pan_view_tv" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/pan_con"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:layout_editor_absoluteX="-59dp">
+
+                    <Button
+                        android:id="@+id/proceed_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="18dp"
+                        android:background="@drawable/rounded_button"
+                        android:text="PROCEED"
+
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+
+                        app:layout_constraintStart_toStartOf="parent"
+
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+    </ScrollView>
+</FrameLayout>
