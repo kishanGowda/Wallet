@@ -12,9 +12,10 @@
 
     <ImageView
         android:id="@+id/cancel_imageView_email"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         android:layout_marginEnd="17dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -75,7 +76,7 @@
                 android:background="@drawable/stroke_box"
                 android:ems="10"
                 android:hint="Enter email ID"
-                android:inputType="textPersonName"
+                android:inputType="textEmailAddress"
                 android:paddingStart="13dp"
 
                 android:textColorHint="#AEAEAE" />

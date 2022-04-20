@@ -34,8 +34,10 @@ import android.widget.Toast;
 import com.example.wallet.Api.ApiClient;
 import com.example.wallet.Api.GenerateOtpResponse;
 import com.example.wallet.Api.GetOtpRequest;
+import com.example.wallet.Api.GetUserKycResponse;
 import com.example.wallet.Api.GetWalletResponse;
 import com.example.wallet.Api.LoginService;
+import com.example.wallet.Api.UpdateDetailsRequest;
 import com.example.wallet.Api.UpdateUserKycRequest;
 import com.example.wallet.Api.UpdateUserKycResponse;
 import com.example.wallet.Api.VerifyRequest;
@@ -45,6 +47,7 @@ import com.rilixtech.widget.countrycodepicker.Country;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -58,11 +61,18 @@ public class CompleteKycDetails extends Fragment {
 View view;
     Button button;
     ImageView back;
-    EditText nameText,number,dob,emailText,c1,c2,c3,c4,c5,c6;
+    EditText nameText,number,dob,emailText,c1,c2,c3,c4,c5,c6,an;
     AutoCompleteTextView gender,relation;
     Boolean verifeid=false;
+    Boolean send=false;
+    ArrayList<String> genderArrayList;
     CountryCodePicker ccp;
+    String responseVerifiedNumber;
+    GetUserKycResponse g;
+    String verifiednumber,phoneNumber;
     String fullNumber="+91";
+    String set;
+    AutoCompleteTextView textViewSpinner;
 
     TextView sendotp,verfied;
     Retrofit retrofit;
@@ -79,16 +89,22 @@ View view;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_complete_kyc_details, container, false);
+        apiInIt();
+
 
         button = view.findViewById(R.id.proceed_button);
         nameText = view.findViewById(R.id.name_editText);
+      an=view.findViewById(R.id.name_editText);
         number = view.findViewById(R.id.number);
         gender = view.findViewById(R.id.linearLayout_gender);
         dob = view.findViewById(R.id.linearLayout_dob);
         emailText =view. findViewById(R.id.email_editText);
         relation = view.findViewById(R.id.relation_db);
         ccp=view.findViewById(R.id.ccp);
-
+        sendotp=view.findViewById(R.id.send_otp);
+        verfied=view.findViewById(R.id.verifeid);
+        AutoCompleteTextView textViewSpinner = (AutoCompleteTextView)
+                view.findViewById(R.id.linearLayout_gender);
 //        ccp.registerPhoneNumberTextView(number);
         ccp.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
             @Override
@@ -97,7 +113,13 @@ View view;
                 Log.i(TAG, "onCreateView:fullNumber "+fullNumber);
             }
         });
-        verfied=view.findViewById(R.id.verifeid);
+
+//get userkyc methgod calling to update the filed
+
+
+
+
+
         //date picker
         Calendar calendar=Calendar.getInstance();
         DatePickerDialog.OnDateSetListener date= new DatePickerDialog.OnDateSetListener() {
@@ -125,13 +147,15 @@ View view;
                 new DatePickerDialog(getActivity(),date,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-        sendotp=view.findViewById(R.id.send_otp);
+
         sendotp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String numbers= fullNumber+number.getText().toString();
                 Log.i(TAG, numbers);
-               dailog(numbers);
+                phoneNumber=numbers;
+                dailog(numbers);
+
 
                     }
                 });
@@ -148,22 +172,28 @@ View view;
         });
 
         //for gender
+         genderArrayList=new ArrayList<>();
+        genderArrayList.add("Male");
+        genderArrayList.add("Female");
+        genderArrayList.add("Other");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getActivity(), android.R.layout.simple_list_item_1, getResources()
-                .getStringArray(R.array.Spinner));
-        AutoCompleteTextView textViewSpinner = (AutoCompleteTextView)
-                view.findViewById(R.id.linearLayout_gender);
-        textViewSpinner.setAdapter(adapter);
+
+
+        ArrayAdapter adapterOne = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, genderArrayList);
+        textViewSpinner.setAdapter(adapterOne);
+
         textViewSpinner.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View paramView, MotionEvent paramMotionEvent) {
-                // TODO Auto-generated method stub
+            public boolean onTouch(View view, MotionEvent motionEvent) {
                 textViewSpinner.showDropDown();
-                textViewSpinner.requestFocus();
                 return false;
             }
         });
+
+
+
+
+
 
 
         ArrayAdapter<String> adapterRelation = new ArrayAdapter<String>(
@@ -174,11 +204,21 @@ View view;
         textViewRelation.setAdapter(adapterRelation);
         textViewRelation.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View paramView, MotionEvent paramMotionEvent) {
-                // TODO Auto-generated method stub
+            public boolean onTouch(View view, MotionEvent motionEvent) {
                 textViewRelation.showDropDown();
-                textViewRelation.requestFocus();
                 return false;
+            }
+        });
+
+        nameText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                                    if(!(number.getText().equals(g.phone))){
+                            verfied.setText(View.GONE);
+                            sendotp.setText(View.VISIBLE);
+
+
+                          }
             }
         });
 
@@ -193,10 +233,9 @@ View view;
                 String dateOfbirth=dob.getText().toString();
                 String email=emailText.getText().toString();
                 String rela=relation.getText().toString();
-                apiInIt();
-             //   procced();
 
-                Fragment fragment = new KycAddressStep(name,phoneNumber,gen,dateOfbirth,email,rela);
+                procced();
+                Fragment fragment = new KycAddressStep(name,fullNumber+phoneNumber,gen,dateOfbirth,email,rela);
                 FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
                         R.anim.slide_in,  // enter
@@ -216,6 +255,49 @@ View view;
         dob.addTextChangedListener(textWatcher);
         emailText.addTextChangedListener(textWatcher);
         relation.addTextChangedListener(textWatcher);
+      getUserKvcStatus();
+
+
+
+
+      number.addTextChangedListener(new TextWatcher() {
+          @Override
+          public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+          }
+
+          @Override
+          public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+              try {
+
+
+                  if (responseVerifiedNumber.equals(fullNumber + number.getText().toString())) {
+                      verfied.setVisibility(View.VISIBLE);
+                      sendotp.setVisibility(View.GONE);
+                      verifeid = true;
+                  } else if (number.getText().length() != 10 && !responseVerifiedNumber.equals(number.getText().toString())) {
+                      sendotp.setVisibility(View.VISIBLE);
+                      verfied.setVisibility(View.GONE);
+                      verifeid = false;
+                      Log.i(TAG, "onTextChanged: " + verifeid);
+                  }
+              }
+              catch (Exception e){
+                  Log.i(TAG, "onTextChanged: "+e.getMessage());
+              }
+
+          }
+
+          @Override
+          public void afterTextChanged(Editable editable) {
+
+          }
+      });
+
+
+
+
 
         return  view;
     }
@@ -241,8 +323,9 @@ View view;
             resend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     String numbers= number.getText().toString();
-                    dailog(numbers);
+                    generate();
                 }
             });
             edit.setOnClickListener(new View.OnClickListener() {
@@ -431,7 +514,7 @@ View view;
 
     private void verify(String s, String verifyNumber) {
         Log.i("pass", s);
-            VerifyRequest verifyRequest=new VerifyRequest(verifyNumber,s);
+            VerifyRequest verifyRequest=new VerifyRequest(fullNumber+verifyNumber,s);
             Call<VerifyResponse> call=loginService.verifyCall(verifyRequest);
             call.enqueue(new Callback<VerifyResponse>() {
                 @Override
@@ -445,7 +528,10 @@ View view;
                     if(generateOtpResponse.show.type.equals("success")){
                         sendotp.setVisibility(View.GONE);
                         verfied.setVisibility(View.VISIBLE);
+                        verifiednumber=verifyNumber;
                         verifeid=true;
+                        send=true;
+
 
                     }
 
@@ -468,27 +554,34 @@ View view;
         loginService= ApiClient.getApiService();
     }
     private void procced() {
-
-
         String name=nameText.getText().toString();
-        String phoneNumber=number.getText().toString();
         String gen=gender.getText().toString();
         String dateOfbirth=dob.getText().toString();
         String email=emailText.getText().toString();
+        String num=number.getText().toString();
         String rela=relation.getText().toString();
-        UpdateUserKycRequest updateUserKycRequest=new UpdateUserKycRequest(name,rela,phoneNumber,gen,dateOfbirth,email,"","","","","","","");
-        Call<UpdateUserKycResponse> call=loginService.updateCall(updateUserKycRequest);
+        UpdateDetailsRequest updateUserKycRequest=new UpdateDetailsRequest(name,rela,fullNumber+num,gen,dateOfbirth,email);
+        Call<UpdateUserKycResponse> call=loginService.detail_call(updateUserKycRequest);
         call.enqueue(new Callback<UpdateUserKycResponse>() {
             @Override
             public void onResponse(Call<UpdateUserKycResponse> call, Response<UpdateUserKycResponse> response) {
                 if(!response.isSuccessful())
                 {
-                    Toast.makeText(getActivity(), response.code(), Toast.LENGTH_SHORT).show();
+                    try {
+                        Toast.makeText(getActivity(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
+                    }catch (Exception e){
+                        Log.i("onresponse", e.getMessage());
+                    }
                 }
-                UpdateUserKycResponse generateOtpResponse=response.body();
+                try {
+
+                    UpdateUserKycResponse generateOtpResponse = response.body();
 
 
-                Toast.makeText(getActivity(), generateOtpResponse.show.message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), generateOtpResponse.show.message, Toast.LENGTH_SHORT).show();
+                }catch(Exception e){
+                    Log.i(TAG, "onResponse: "+e.getMessage());
+                }
             }
 
             @Override
@@ -508,7 +601,7 @@ View view;
     {
         String n=number.getText().toString();
         Log.i("number", n);
-        GetOtpRequest getOtpRequest=new GetOtpRequest(n);
+        GetOtpRequest getOtpRequest=new GetOtpRequest(fullNumber+n);
         Call<GenerateOtpResponse> call=loginService.otp(getOtpRequest);
         call.enqueue(new Callback<GenerateOtpResponse>() {
             @Override
@@ -529,20 +622,29 @@ View view;
     }
 
 
+
+
+
+
+
             public TextWatcher textWatcher = new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    String name = nameText.getText().toString().trim();
-                    String noText = number.getText().toString().trim();
-                    String genderText = gender.getText().toString().trim();
-                    String dobText = dob.getText().toString().trim();
-                    String email = emailText.getText().toString().trim();
-                    String relationText = relation.getText().toString().trim();
-                    if (!name.isEmpty() && !noText.isEmpty()
-                            && !genderText.isEmpty() && !dobText.isEmpty()&&
-                            !email.isEmpty() && !relationText.isEmpty()&&verifeid){
-                        button.setEnabled(true);
-                    }
+//                    String name = nameText.getText().toString().trim();
+//                    String noText = number.getText().toString().trim();
+//                    String genderText = gender.getText().toString().trim();
+//                    String dobText = dob.getText().toString().trim();
+//                    String email = emailText.getText().toString().trim();
+//                    String relationText = relation.getText().toString().trim();
+//
+//                    if (!name.isEmpty() && !noText.isEmpty()
+//                            && !genderText.isEmpty() && !dobText.isEmpty()&&
+//                            !email.isEmpty() && !relationText.isEmpty()&& verifeid){
+//                        button.setEnabled(true);
+//                    }
+//                    Log.i(TAG, verifeid+String.valueOf(noText.length()));
+
+
 
                 }
 
@@ -554,20 +656,107 @@ View view;
                     String dobText = dob.getText().toString().trim();
                     String email = emailText.getText().toString().trim();
                     String relationText = relation.getText().toString().trim();
-                    if (!name.isEmpty() && !noText.isEmpty()
+
+
+                    if (!name.isEmpty()
                             && !genderText.isEmpty() && !dobText.isEmpty()&&
-                            !email.isEmpty() && !relationText.isEmpty()&&verifeid){
-                        button.setEnabled(true);
+                            !email.isEmpty() && !relationText.isEmpty()&& verifeid) {
+                       button.setEnabled(true);
+                    }
+                    else {
+                        button.setEnabled(false);
                     }
 
-
+                    Log.i(TAG, verifeid+String.valueOf(noText.length()));
 
                 }
 
                 @Override
                 public void afterTextChanged(Editable editable) {
 
+                    String name = nameText.getText().toString().trim();
+
+                    String genderText = gender.getText().toString().trim();
+                    String dobText = dob.getText().toString().trim();
+                    String email = emailText.getText().toString().trim();
+                    String relationText = relation.getText().toString().trim();
+                    if (!name.isEmpty()
+                            && !genderText.isEmpty() && !dobText.isEmpty()&&
+                            !email.isEmpty() && !relationText.isEmpty()&& verifeid) {
+                        button.setEnabled(true);
+                    }
+                    else {
+                        button.setEnabled(false);
+                    }
+
+
+
+
+//                    Log.i(TAG, String.valueOf(nameText.getText().length())+ number.getText().length()+gender.getText().length()+
+//                            dob.getText().length() + emailText.getText().length() );
+////                    }
+//
+//                    if (nameText.getText().length()<1 && number.getText().length()==10 && gender.getText().length()<=1 &&
+//                            dob.getText().length()<=1 && emailText.getText().length()<=5&& relation.getText().length()<=1){
+//                        button.setEnabled(true);
+//                    }
+//                    else {
+//                        button.setEnabled(false);
+//                    }
+
+
+
                 }
             };
 
-        }
+    public void getUserKvcStatus(){
+        Call<GetUserKycResponse> call=loginService.getUserCall();
+        call.enqueue(new Callback<GetUserKycResponse>() {
+            @Override
+            public void onResponse(Call<GetUserKycResponse> call, Response<GetUserKycResponse> response) {
+                if(!response.isSuccessful()){
+                    Toast.makeText(getContext(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
+                    Log.i("not", String.valueOf(response.code()));
+                }
+                try {
+
+                  g = response.body();
+                    if(!g.phone.isEmpty()){
+                        responseVerifiedNumber=g.phone.toString();
+                        verifeid=true;
+                        send=true;
+                        sendotp.setVisibility(View.GONE);
+                        verfied.setVisibility(View.VISIBLE);
+
+
+
+                    }else{
+                        verifeid=false;
+                    }
+
+
+                    nameText.setText(g.name);
+                    number.setText(g.phone.substring(3));
+                    gender.setText(g.gender);
+                    dob.setText(g.dob);
+                    relation.setText(g.relation);
+                    emailText.setText(g.email);
+                    send=true;
+
+                } catch (Exception e) {
+
+                    Log.i("E", String.valueOf(e.getMessage()));
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<GetUserKycResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+}

@@ -146,14 +146,14 @@ ImageView back,arrow;
 
                     } else if (length >= 3) {
                         for (int i = 0; i <= 2; i++) {
-                            card.add(new PaymentRequest("₹ " +getFilterWalletResponse.transactions.get(i).amount, getFilterWalletResponse.transactions.get(i).date, getFilterWalletResponse.transactions.get(i).dueDate, getFilterWalletResponse.transactions.get(i).note,getFilterWalletResponse.transactions.get(i).orgId,getFilterWalletResponse.transactions.get(i).userId,getFilterWalletResponse.transactions.get(i).id,getFilterWalletResponse.transactions.get(i).amount));
+                            card.add(new PaymentRequest("₹ " +getFilterWalletResponse.transactions.get(i).amount, getFilterWalletResponse.transactions.get(i).date, getFilterWalletResponse.transactions.get(i).dueDate, getFilterWalletResponse.transactions.get(i).note,getFilterWalletResponse.transactions.get(i).orgId,getFilterWalletResponse.transactions.get(i).userId,getFilterWalletResponse.transactions.get(i).id,getFilterWalletResponse.transactions.get(i).amount,getFilterWalletResponse.transactions.get(i).status));
 
                         }
                         buildRecyclerView();
                     } else
                     {
                         for (int i = 0; i <= length - 1; i++) {
-                            card.add(new PaymentRequest("₹ " +getFilterWalletResponse.transactions.get(i).amount, getFilterWalletResponse.transactions.get(i).date, getFilterWalletResponse.transactions.get(i).dueDate, getFilterWalletResponse.transactions.get(i).note,getFilterWalletResponse.transactions.get(i).orgId,getFilterWalletResponse.transactions.get(i).userId,getFilterWalletResponse.transactions.get(i).id,getFilterWalletResponse.transactions.get(i).amount));
+                            card.add(new PaymentRequest("₹ " +getFilterWalletResponse.transactions.get(i).amount, getFilterWalletResponse.transactions.get(i).date, getFilterWalletResponse.transactions.get(i).dueDate, getFilterWalletResponse.transactions.get(i).note,getFilterWalletResponse.transactions.get(i).orgId,getFilterWalletResponse.transactions.get(i).userId,getFilterWalletResponse.transactions.get(i).id,getFilterWalletResponse.transactions.get(i).amount,getFilterWalletResponse.transactions.get(i).status));
                         }
                         buildRecyclerView();
                     }
@@ -210,11 +210,11 @@ ImageView back,arrow;
                 }
                 GetWalletResponse getWalletResponse=response.body();
                 requestPending.setText("₹"+getWalletResponse.totalLinksPaid.amount.toString());
-                pending.setText("₹"+getWalletResponse.totalLinksPaid.amount.toString());
+                pending.setText("₹"+getWalletResponse.totalLinksPending.amount.toString());
                 overdue.setText("₹"+getWalletResponse.totalLinksOverDue.amount.toString());
                 refunded.setText("₹"+Float.parseFloat(getWalletResponse.totalRefunded.amount));
-                requestPendingText.setText(String.valueOf(getWalletResponse.totalLinksPaid.count+"REQUESTS PAID"));
-                pendingText.setText(String.valueOf(getWalletResponse.totalLinksPaid.count+" Pending"));
+                requestPendingText.setText(String.valueOf(getWalletResponse.totalLinksPaid.count+" REQUESTS PAID"));
+                pendingText.setText(String.valueOf(getWalletResponse.totalLinksPending.count+" Pending"));
                 overdueText.setText(String.valueOf(getWalletResponse.totalLinksOverDue.count+" OVER DUE"));
                 refundedText.setText(String.valueOf(""+getWalletResponse.totalRefunded.count+" REFUNDED"));
                 Log.i("count", String.valueOf(getWalletResponse.totalLinksPaid.count));

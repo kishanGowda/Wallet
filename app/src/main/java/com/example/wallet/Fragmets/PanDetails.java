@@ -3,6 +3,7 @@ package com.example.wallet.Fragmets;
 import static android.app.Activity.RESULT_OK;
 
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,10 +19,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,10 +33,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.wallet.Api.ApiClient;
 import com.example.wallet.Api.DeleteDocument;
 import com.example.wallet.Api.DocUploadResponse;
+import com.example.wallet.Api.GetUserKycResponse;
 import com.example.wallet.Api.LoginService;
+import com.example.wallet.Api.PincodeResponse;
 import com.example.wallet.Api.UpdateUserKycRequest;
 import com.example.wallet.Api.UpdateUserKycResponse;
 import com.example.wallet.HomePage;
@@ -43,6 +50,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -60,6 +70,10 @@ public class PanDetails extends Fragment {
     BottomSheetDialog bottomSheetDialog;
     String message;
     JSONObject json;
+    final String pan_pattern = "(([A-Za-z]{5})([0-9]{4})([a-zA-Z]))";
+    Boolean aadharfor=false,driving=false,passport=false,voter=false;
+    AlertDialog alertDialog;
+    String BASE_URL_FOR_IMAGES = "https://s3.ap-south-1.amazonaws.com/test.files.classroom.digital/";
 
     LoginService loginService;
     Retrofit retrofit;
@@ -71,15 +85,17 @@ public class PanDetails extends Fragment {
     public static final int PICK_IMAGE = 1;
     String pan,frontPic,backPic;
     TextView panTv,frontTv,backTv;
+    AlertDialog.Builder  alertDialogBuilder;
     Dialog dialog;
     Button button;
+    ImageView popupImageView;
     ConstraintLayout  panProof,frontProof,backProof,viewPan,viewFront,viewBack;
     LinearLayout linearLayout;
     TextView addharNumber,frontText,backText;
     EditText proof,panNumber,documentNumber;
     ImageView deleteFront,deleteBack,deletePan;
-    ConstraintLayout adhar,voter,passport,driving;
     String panKey,frontKey,backKey;
+    Boolean panCheck=false,frontCheck=false,backCheck=false;
     ImageView backing;
 
 
@@ -124,6 +140,51 @@ public class PanDetails extends Fragment {
         frontProof =view. findViewById(R.id.aadhar_front_image_layout);
         panNumber=view.findViewById(R.id.pan_editText);
         documentNumber=view.findViewById(R.id.aadhar_num_editText);
+
+        documentNumber.addTextChangedListener(textWatcher);
+        panNumber.addTextChangedListener(textWatcher);
+
+
+
+        panNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                String s = panNumber.getText().toString(); // get your editext value here
+                Pattern pattern = Pattern.compile("[A-Z]{5}[0-9]{4}[A-Z]{1}");
+
+                Matcher matcher = pattern.matcher(s);
+// Check if pattern matches
+                if (matcher.matches()) {
+                    Log.i("Matching","Yes");
+                }
+                else {
+                    button.setEnabled(false);
+                    Toast.makeText(getActivity(), "Enter valid pan number", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                String s = panNumber.getText().toString(); // get your editext value here
+                Pattern pattern = Pattern.compile("[A-Z]{5}[0-9]{4}[A-Z]{1}");
+                Matcher matcher = pattern.matcher(s);
+// Check if pattern matches
+                if (matcher.matches()) {
+                    Log.i("Matching","Yes");
+                }
+            }
+        });
+
+
+
+
 
 
         //address format
@@ -186,14 +247,26 @@ public class PanDetails extends Fragment {
 
             }
         });
-
+    getUserKvcStatus();
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String pannumber=panNumber.getText().toString();
                 String docNumber=documentNumber.getText().toString();
-                UpdateUserKycRequest updateUserKycRequest=new UpdateUserKycRequest(name,relation,phoneNumber,gender,dateOfbirth,email,message,pannumber,panKey,"Aadhaar",docNumber,frontKey,backKey);
+                Log.i("name", name);
+                Log.i("relation", relation);
+                Log.i("phone", phoneNumber);
+                Log.i("gender", gender);
+                Log.i("dateOfbirth", dateOfbirth);
+                Log.i("email", email);
+                Log.i("message", message);
+                Log.i("pannumber",pannumber );
+                Log.i("panKey", panKey);
+
+
+                UpdateUserKycRequest updateUserKycRequest=new UpdateUserKycRequest(name,relation,phoneNumber,gender,dateOfbirth,
+                        email,message,pannumber,panKey,"Aadhaar",docNumber,frontKey,backKey);
                 Call<UpdateUserKycResponse> call=loginService.updateCall(updateUserKycRequest);
                 call.enqueue(new Callback<UpdateUserKycResponse>() {
                     @Override
@@ -206,18 +279,36 @@ public class PanDetails extends Fragment {
 
 
                             UpdateUserKycResponse userKycResponse = response.body();
-                            Toast.makeText(getActivity(), userKycResponse.show.message, Toast.LENGTH_SHORT).show();
-                            Fragment fragment = new HomePage();
-                            FragmentManager fragmentManager = ((FragmentActivity) getActivity()).getSupportFragmentManager();
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
-                                    R.anim.slide_in,  // enter
-                                    R.anim.fade_out,  // exit
-                                    R.anim.fade_in,   // popEnter
-                                    R.anim.slide_out  // popExit
-                            );
-                            fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-                            fragmentTransaction.addToBackStack(null);
-                            fragmentTransaction.commit();
+                          //  Toast.makeText(getActivity(), userKycResponse.show.message, Toast.LENGTH_SHORT).show();
+                            if(userKycResponse.show.type.equalsIgnoreCase("success")){
+                                Dialog dialog = new Dialog(getActivity());
+                                dialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
+                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                dialog.setCancelable(false);
+                                dialog.setContentView(R.layout.kvc_complete);
+                                Button dialogButton = (Button) dialog.findViewById(R.id.okay_btn);
+                                dialogButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialog.dismiss();
+                                        Fragment fragment = new HomePage();
+                                        FragmentManager fragmentManager = ((FragmentActivity) getActivity()).getSupportFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
+                                                R.anim.slide_in,  // enter
+                                                R.anim.fade_out,  // exit
+                                                R.anim.fade_in,   // popEnter
+                                                R.anim.slide_out  // popExit
+                                        );
+                                        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
+                                        fragmentTransaction.addToBackStack(null);
+                                        fragmentTransaction.commit();
+                                    }
+                                });
+                                dialog.show();
+
+                            }
+
+
                         }
                         catch (Exception e){
                             Log.i("pan", e.getMessage());
@@ -248,18 +339,24 @@ public class PanDetails extends Fragment {
                 TextView drivingr=(TextView) bottomSheetDialog.findViewById(R.id.driving_tv);
                 TextView passportr=(TextView) bottomSheetDialog.findViewById(R.id.passport_tv);
                 TextView a1=(TextView) bottomSheetDialog.findViewById(R.id.aadhar_tv);
-//                TextView a2=(TextView) bottomSheetDialog.findViewById(R.id.aadhar_tvv);
                 TextView b1=(TextView) bottomSheetDialog.findViewById(R.id.voter_tv);
-//                TextView b2=(TextView) bottomSheetDialog.findViewById(R.id.voter_tvv);
                 TextView c1=(TextView) bottomSheetDialog.findViewById(R.id.passport_tv);
-//                TextView c2=(TextView) bottomSheetDialog.findViewById(R.id.passport_tvv);
                 TextView d1=(TextView) bottomSheetDialog.findViewById(R.id.driving_tv);
-//                TextView d2=(TextView) bottomSheetDialog.findViewById(R.id.driving_tvv);
+
                 aadhar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         proof.setText("Aadhar");
+                        addharNumber.setText("Aadhar Number");
+                        frontText.setText("Aadhar front");
+                        backText.setText("Aadhar Back");
+                        documentNumber.setHint("Enter Aadhar card number");
+                        aadharfor=true;
+                        driving=false;
+                        passport=false;
+                        voter=false;
                         bottomSheetDialog.dismiss();
+
                     }
 
                 });
@@ -270,6 +367,11 @@ public class PanDetails extends Fragment {
                         addharNumber.setText("Voter-ID Number");
                         frontText.setText("Voter front");
                         backText.setText("Voter Back");
+                        documentNumber.setHint("Enter voter ID number");
+                        aadharfor=false;
+                        driving=false;
+                        passport=false;
+                        voter=true;
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -279,8 +381,13 @@ public class PanDetails extends Fragment {
                     public void onClick(View view) {
                         proof.setText("Passport");
                         addharNumber.setText("PassPort Number");
+                        addharNumber.setHint("Enter passport number");
                         frontText.setText("passport front");
                         backText.setText("passport Back");
+                        aadharfor=false;
+                        driving=false;
+                        passport=true;
+                        voter=false;
                         bottomSheetDialog.dismiss();
 
                     }
@@ -291,9 +398,13 @@ public class PanDetails extends Fragment {
                     public void onClick(View view) {
                         proof.setText("Driving licence");
                         addharNumber.setText("driving-ID Number");
+                        documentNumber.setHint("Enter driving Licence number");
                         frontText.setText("driving front");
                         backText.setText("driving Back");
-
+                        aadharfor=false;
+                        driving=true;
+                        passport=false;
+                        voter=false;
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -301,6 +412,29 @@ public class PanDetails extends Fragment {
                 bottomSheetDialog.show();
             }
 
+        });
+
+
+
+
+
+        documentNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(driving){
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
         });
 
 
@@ -338,18 +472,38 @@ public class PanDetails extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getActivity(), Photo.class);
-                intent.putExtra("key",panKey);
-                getActivity().startActivity(intent);
+//                Intent intent = new Intent(getActivity(), Photo.class);
+//                intent.putExtra("key",panKey);
+//                getActivity().startActivity(intent);
+
+                         alertDialogBuilder = new AlertDialog.Builder(getContext());
+                        final View popupView1 = getLayoutInflater().inflate(R.layout.popup, null);
+                        popupView1.setClipToOutline(true);
+                        popupImageView = popupView1.findViewById(R.id.documentImageView);
+                        Glide.with(view).load(BASE_URL_FOR_IMAGES + panKey).into(popupImageView);
+                        alertDialogBuilder.setView(popupView1);
+                        alertDialog = alertDialogBuilder.create();
+                        alertDialog.setCanceledOnTouchOutside(true);
+                        alertDialog.show();
+
             }
         });
 
         frontTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Photo.class);
-                intent.putExtra("key",frontKey);
-                getActivity().startActivity(intent);
+//                Intent intent = new Intent(getActivity(), Photo.class);
+//                intent.putExtra("key",frontKey);
+//                getActivity().startActivity(intent);
+                alertDialogBuilder = new AlertDialog.Builder(getContext());
+                final View popupView1 = getLayoutInflater().inflate(R.layout.popup, null);
+                popupView1.setClipToOutline(true);
+                popupImageView = popupView1.findViewById(R.id.documentImageView);
+                Glide.with(view).load(BASE_URL_FOR_IMAGES + frontKey).into(popupImageView);
+                alertDialogBuilder.setView(popupView1);
+                alertDialog = alertDialogBuilder.create();
+                alertDialog.setCanceledOnTouchOutside(true);
+                alertDialog.show();
             }
         });
 
@@ -357,9 +511,19 @@ public class PanDetails extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getActivity(), Photo.class);
-                intent.putExtra("key",backKey);
-                getActivity().startActivity(intent);
+//                Intent intent = new Intent(getActivity(), Photo.class);
+//                intent.putExtra("key",backKey);
+//                getActivity().startActivity(intent);
+
+                alertDialogBuilder = new AlertDialog.Builder(getContext());
+                final View popupView1 = getLayoutInflater().inflate(R.layout.popup, null);
+                popupView1.setClipToOutline(true);
+                popupImageView = popupView1.findViewById(R.id.documentImageView);
+                Glide.with(view).load(BASE_URL_FOR_IMAGES + backKey).into(popupImageView);
+                alertDialogBuilder.setView(popupView1);
+                alertDialog = alertDialogBuilder.create();
+                alertDialog.setCanceledOnTouchOutside(true);
+                alertDialog.show();
             }
         });
         return  view;
@@ -509,6 +673,7 @@ public class PanDetails extends Fragment {
                     if ("success".equals(docUploadResponse.show.type)){
                         panProof.setVisibility(View.GONE);
                         viewPan.setVisibility(View.VISIBLE);
+                        panCheck=true;
                     }
                 }
 
@@ -556,6 +721,7 @@ public class PanDetails extends Fragment {
                     if ("success".equals(docUploadResponse.show.type)){
                         frontProof.setVisibility(View.GONE);
                         viewFront.setVisibility(View.VISIBLE);
+                        frontCheck=true;
                     }
                 }
 
@@ -600,6 +766,7 @@ public class PanDetails extends Fragment {
                         if ("success".equals(docUploadResponse.show.type)){
                             backProof.setVisibility(View.GONE);
                             viewBack.setVisibility(View.VISIBLE);
+                            backCheck=true;
                         }
                     }
 
@@ -622,10 +789,137 @@ public class PanDetails extends Fragment {
         loginService= ApiClient.getApiService();
     }
 
+    TextWatcher textWatcher=new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            String docNumber=documentNumber.getText().toString().trim();
+            String panNubre=panNumber.getText().toString().trim();
+            button.setEnabled(!docNumber.isEmpty() && !panNubre.isEmpty() && panCheck && frontCheck && backCheck);
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            String docNumber=documentNumber.getText().toString().trim();
+            String panNubre=panNumber.getText().toString().trim();
+        button.setEnabled(!docNumber.isEmpty() && !panNubre.isEmpty() && panCheck && frontCheck && backCheck);
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            String docNumber=documentNumber.getText().toString().trim();
+            String panNubre=panNumber.getText().toString().trim();
+            button.setEnabled(!docNumber.isEmpty() && !panNubre.isEmpty() && panCheck && frontCheck && backCheck);
+
+        }
+    };
+
+
+    public void getUserKvcStatus(){
+        try {
+        Call<GetUserKycResponse> call=loginService.getUserCall();
+        call.enqueue(new Callback<GetUserKycResponse>() {
+            @Override
+            public void onResponse(Call<GetUserKycResponse> call, Response<GetUserKycResponse> response) {
+                if(!response.isSuccessful()){
+                    Toast.makeText(getContext(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
+                    Log.i("not", String.valueOf(response.code()));
+                }
+
+                    try {
+
+
+                        GetUserKycResponse g = response.body();
+                        panNumber.setText(g.panNo);
+                        if (g.addressType.equalsIgnoreCase("Aadhaar")) {
+                            proof.setText("Aadhar");
+                            addharNumber.setText("Aadhar Number");
+                            frontText.setText("Aadhar front");
+                            backText.setText("Aadhar Back");
+                            documentNumber.setHint("Enter Aadhar card number");
+                            aadharfor = true;
+                            driving = false;
+                            passport = false;
+                            voter = false;
+
+
+                        } else if (g.addressType.equalsIgnoreCase("Voter-ID Number")) {
+                            proof.setText("Voter Id");
+                            addharNumber.setText("Voter-ID Number");
+                            frontText.setText("Voter front");
+                            backText.setText("Voter Back");
+                            documentNumber.setHint("Enter voter ID number");
+                            aadharfor = false;
+                            driving = false;
+                            passport = false;
+                            voter = true;
+
+                        } else if (g.addressType.equalsIgnoreCase("Driving licence")) {
+                            proof.setText("Driving licence");
+                            addharNumber.setText("driving-ID Number");
+                            documentNumber.setHint("Enter driving Licence number");
+                            frontText.setText("driving front");
+                            backText.setText("driving Back");
+                            aadharfor = false;
+                            driving = true;
+                            passport = false;
+                            voter = false;
+
+                        } else {
+                            proof.setText("Passport");
+                            addharNumber.setText("PassPort Number");
+                            addharNumber.setHint("Enter passport number");
+                            frontText.setText("passport front");
+                            backText.setText("passport Back");
+                            aadharfor = false;
+                            driving = false;
+                            passport = true;
+                            voter = false;
+                        }
+
+                        if (g.documentBack != null) {
+                            backKey = g.documentBack.toString();
+                            backProof.setVisibility(View.GONE);
+                            viewBack.setVisibility(View.VISIBLE);
+                            backCheck = true;
+                        }
+                        if (g.panFront != null) {
+                            panKey = g.panFront.toString();
+                            panProof.setVisibility(View.GONE);
+                            viewPan.setVisibility(View.VISIBLE);
+                            panCheck = true;
+                        }
+                        if (g.documentFront != null) {
+                            frontKey = g.documentFront.toString();
+                            frontProof.setVisibility(View.GONE);
+                            viewFront.setVisibility(View.VISIBLE);
+                            frontCheck = true;
+                        }
+                    }
+                    catch (Exception e){
+                        Log.i("TAG", "onResponse: "+e.getMessage());
+                    }
+
+
+
+                  
 
 
 
 
+            }
+
+            @Override
+            public void onFailure(Call<GetUserKycResponse> call, Throwable t) {
+
+            }
+        });
+        } catch (Exception e) {
+
+            Log.i("E", String.valueOf(e.getMessage()));
+        }
+    }
 
 }
 

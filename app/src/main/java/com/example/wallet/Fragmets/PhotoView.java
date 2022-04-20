@@ -49,7 +49,7 @@ WebView webView;
 
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        webView.loadUrl(panKey);
+        webView.loadUrl( "https://docs.google.com/viewer?url="+"https://test-digital-library.s3.ap-south-1.amazonaws.com/"+panKey);
 
 
         return view;

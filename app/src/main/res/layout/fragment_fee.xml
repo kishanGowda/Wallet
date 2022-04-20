@@ -39,10 +39,7 @@
                 android:id="@+id/toolbarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-
-                android:text="Fee"
-
+                android:text="Aulas Wallet"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -116,7 +113,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="11 REQUESTS PAID"
                     android:textColor="#636363"
                     android:textSize="10dp"
                     app:layout_constraintStart_toStartOf="@+id/reuest_pending_tv"
@@ -228,7 +224,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
-            android:text="(6)"
+            android:text="()"
             app:layout_constraintBottom_toBottomOf="@+id/textView22"
             app:layout_constraintStart_toEndOf="@+id/textView22"
             app:layout_constraintTop_toTopOf="@+id/textView22" />
@@ -303,7 +299,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/star" />
+                    app:srcCompat="@drawable/ic_fee_two" />
 
                 <TextView
                     android:id="@+id/textView24"

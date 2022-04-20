@@ -106,10 +106,6 @@ ConstraintLayout admisiion;
                 String orgId= getFilterWalletResponse.transactions.get(0).orgId;
                 int userId=getFilterWalletResponse.transactions.get(0).user.id;
                 Log.i("userId", String.valueOf(userId));
-//                SimpleDateFormat dateFormat = new SimpleDateFormat("HHmm");
-//                String millisInString  = dateFormat.format(new Date());
-//                Log.i("time", millisInString);
-//                String time=millisInString;
                 long millis = System.currentTimeMillis();
                 long seconds = millis / 1000;
                 Log.i("sec", String.valueOf(seconds));
@@ -119,7 +115,7 @@ ConstraintLayout admisiion;
                 Log.i("TAG", order);
                 int id=getFilterWalletResponse.transactions.get(0).id;
                 Log.i("id", String.valueOf(id));
-                String  amount=getFilterWalletResponse.transactions.get(0).amount;
+                String  amount= String.valueOf(getFilterWalletResponse.transactions.get(0).amountPayable);
                 Log.i("TAG", amount);
                 int position=0;
                 Intent intent = new Intent(getActivity(), DetailsOfCashFree.class);
@@ -129,18 +125,6 @@ ConstraintLayout admisiion;
                 intent.putExtra("position",String.valueOf(position));
                 getActivity().startActivity(intent);
 
-
-//                Fragment fragment = new DetailsOfPayment(order,id,amount);
-//                FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
-//                        R.anim.slide_in,  // enter
-//                        R.anim.fade_out,  // exit
-//                        R.anim.fade_in,   // popEnter
-//                        R.anim.slide_out  // popExit
-//                );
-//                fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
             }
         });
 

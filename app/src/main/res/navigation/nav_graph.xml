@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_homePage_to_completeKycDetails2"
             app:destination="@id/completeKycDetails2" />
+        <action
+            android:id="@+id/action_homePage_to_fee"
+            app:destination="@id/fee" />
+        <action
+            android:id="@+id/action_homePage_to_detailsOfCashFree"
+            app:destination="@id/detailsOfCashFree" />
     </fragment>
     <fragment
         android:id="@+id/completeKycDetails2"
@@ -41,4 +47,31 @@
             android:id="@+id/action_panDetails_to_homePage"
             app:destination="@id/homePage" />
     </fragment>
+    <fragment
+        android:id="@+id/fee"
+        android:name="com.example.wallet.Fragmets.Fee"
+        android:label="fragment_fee"
+        tools:layout="@layout/fragment_fee" >
+        <action
+            android:id="@+id/action_fee_to_historyPayment"
+            app:destination="@id/historyPayment" />
+        <action
+            android:id="@+id/action_fee_to_paymentRequestFragment"
+            app:destination="@id/paymentRequestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyPayment"
+        android:name="com.example.wallet.Fragmets.HistoryPayment"
+        android:label="fragment_history_payment"
+        tools:layout="@layout/fragment_history_payment" />
+    <fragment
+        android:id="@+id/paymentRequestFragment"
+        android:name="com.example.wallet.Fragmets.PaymentRequestFragment"
+        android:label="fragment_payment_request"
+        tools:layout="@layout/fragment_payment_request" />
+    <activity
+        android:id="@+id/detailsOfCashFree"
+        android:name="com.example.wallet.Fragmets.DetailsOfCashFree"
+        android:label="activity_details_of_cash_free"
+        tools:layout="@layout/activity_details_of_cash_free" />
 </navigation>

@@ -226,13 +226,12 @@
                             android:layout_marginStart="18dp"
                             android:layout_marginTop="12dp"
                             android:layout_marginEnd="18dp"
+                            android:inputType="number"
                             android:background="@drawable/stroke_box"
-                            android:hint="Enter Aadhaar number"
+                            android:hint="Enter card number"
                             android:padding="12dp"
 
-
                             android:textColor="@color/black"
-
                             android:textSize="14dp"
                             android:textStyle="bold"
                             app:layout_constraintTop_toBottomOf="@+id/adhar_number_text"
@@ -269,30 +268,21 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/front_text">
 
-                            <ImageView
-                                android:id="@+id/imageView5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="84dp"
-                                android:src="@drawable/ic_baseline_insert_drive_file_24"
-                                app:layout_constraintBottom_toBottomOf="@+id/click_to_upload_tv"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/click_to_upload_tv"
-                                app:layout_constraintVertical_bias="0.0" />
 
                             <TextView
                                 android:id="@+id/click_to_upload_tv"
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="5dp"
                                 android:layout_weight="0.1"
                                 android:gravity="start"
                                 android:text="Click to Upload"
                                 android:textColor="#1089FF"
+                                android:drawableLeft="@drawable/ic_baseline_file_open_24"
+                                android:drawablePadding="10dp"
                                 android:textStyle="bold"
-
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -332,8 +322,8 @@
                                app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
                            <ImageView
-                               android:layout_width="22dp"
-                               android:layout_height="22dp"
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
                                android:src="@drawable/close"
                                android:id="@+id/delete_front"
                                android:layout_marginEnd="20dp"
@@ -377,30 +367,22 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/back_text">
 
-                            <ImageView
-                                android:id="@+id/file_imageView33"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="84dp"
-                                android:src="@drawable/ic_baseline_insert_drive_file_24"
-                                app:layout_constraintBottom_toBottomOf="@+id/click_to_upload_back_tv_"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/click_to_upload_back_tv_"
-                                app:layout_constraintVertical_bias="1.0" />
 
                             <TextView
                                 android:id="@+id/click_to_upload_back_tv_"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
-                                android:layout_marginEnd="133dp"
                                 android:gravity="start"
                                 android:text="Click to Upload"
                                 android:textColor="#1089FF"
+                                android:drawableLeft="@drawable/ic_baseline_file_open_24"
+                                android:drawablePadding="10dp"
                                 android:textStyle="bold"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toEndOf="@+id/file_imageView33"
+
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -442,8 +424,8 @@
                                 app:layout_constraintTop_toTopOf="@+id/imageView7" />
 
                             <ImageView
-                                android:layout_width="22dp"
-                                android:layout_height="22dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:src="@drawable/close"
                                 android:id="@+id/delete_back"
                                 android:layout_marginEnd="20dp"
@@ -975,13 +957,11 @@
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/stroke_box"
                     android:hint="Enter pan number"
-
-
                     android:padding="12dp"
-
                     android:textColor="@color/black"
                     android:textSize="14dp"
                     android:textStyle="bold"
+                    android:maxLength="10"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -1016,31 +996,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView12">
 
-                    <ImageView
-                        android:id="@+id/file_imageView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="84dp"
-                        android:layout_marginEnd="5dp"
-                        android:src="@drawable/ic_baseline_insert_drive_file_24"
-                        app:layout_constraintBottom_toBottomOf="@+id/pan_front_click_to_uploadtv"
-                        app:layout_constraintEnd_toStartOf="@+id/pan_front_click_to_uploadtv"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/pan_front_click_to_uploadtv" />
 
                     <TextView
                         android:id="@+id/pan_front_click_to_uploadtv"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:layout_marginEnd="133dp"
-                        android:layout_weight="0.1"
                         android:gravity="start"
+                        android:drawableLeft="@drawable/ic_baseline_file_open_24"
+                        android:drawablePadding="10dp"
                         android:text="Click to Upload"
                         android:textColor="#1089FF"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -1081,8 +1051,8 @@
 
                     <ImageView
                         android:id="@+id/delete_pan"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/close"
                         android:layout_marginEnd="20dp"
                         app:layout_constraintBottom_toBottomOf="@+id/pan_view_tv"
@@ -1112,7 +1082,8 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="18dp"
                         android:background="@drawable/rounded_button"
-                        android:text="PROCEED"
+                        android:text="Submit"
+                        android:enabled="false"
 
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"

@@ -31,7 +31,7 @@ import retrofit2.Retrofit;
 public class PaymentRequestFragment extends Fragment {
     View view;
     private static final String TAG = "PaymentRequestFragment";
-    ArrayList<PaymentRequest> card = new ArrayList<>();
+    ArrayList<PaymentRequest> card ;
     RecyclerView recyclerView;
 
     RecyclerView.Adapter cardAdapter;
@@ -86,14 +86,7 @@ public class PaymentRequestFragment extends Fragment {
                     for (int i = 0; i <= size - 1; i++) {
                         Log.i("TAG_id", String.valueOf(getFilterWalletResponse.transactions.get(i).id));
                         Log.i("TAG_userId", String.valueOf(getFilterWalletResponse.transactions.get(i).userId));
-//                        card.add(new PaymentRequest("₹ " +getFilterWalletResponse.transactions.get(i).amount,
-//                                getFilterWalletResponse.transactions.get(i).date,
-//                                getFilterWalletResponse.transactions.get(i).
-//                                dueDate,getFilterWalletResponse.transactions.get(i).note,
-//                                getFilterWalletResponse.transactions.get(i).orgId,
-//                                getFilterWalletResponse.transactions.get(i).userId,
-//                               Integer.valueOf( getFilterWalletResponse.transactions.get(i).id),
-//                                getFilterWalletResponse.transactions.get(i).amount));
+//
                         card.add(new PaymentRequest("₹"+getFilterWalletResponse.transactions.get(i).amount,
                                 getFilterWalletResponse.transactions.get(i).date,
                                 getFilterWalletResponse.transactions.get(i).dueDate,
@@ -101,7 +94,8 @@ public class PaymentRequestFragment extends Fragment {
                                 getFilterWalletResponse.transactions.get(i).orgId,
                                 getFilterWalletResponse.transactions.get(i).userId,
                                 getFilterWalletResponse.transactions.get(i).id,
-                                getFilterWalletResponse.transactions.get(i).amount));
+                                getFilterWalletResponse.transactions.get(i).amount,
+                                getFilterWalletResponse.transactions.get(i).status));
                     }
                     Log.i(TAG, "onResponse:Id "+card.get(0).getId());
                     Log.i(TAG, "onResponse:UserID "+card.get(0).getUserId());

@@ -23,6 +23,7 @@ public class PaymentRequestAdapterTwo extends RecyclerView.Adapter<PaymentReques
 Context context;
 ArrayList<PaymentRequest> card;
 
+
     public PaymentRequestAdapterTwo(ArrayList<PaymentRequest> card, Context context) {
         this.card=card;
         this.context=context;
@@ -44,6 +45,11 @@ ArrayList<PaymentRequest> card;
         holder.dueDate.setText(payment.getDueDate());
         holder.issuedDateTime.setText(payment.getIssuedDateTime());
         holder.admission.setText(payment.getFeeType());
+        if(payment.getStatus().equalsIgnoreCase("Overdue")){
+        holder.overdue.setVisibility(View.VISIBLE);
+
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,11 +57,7 @@ ArrayList<PaymentRequest> card;
                 Log.i("TAG", String.valueOf(payment.getId()));
                 Log.i("TAG2", String.valueOf(payment.getUserId()));
                 Log.i("TAG3", String.valueOf(payment.getOrgID()));
-
-
-
-
-                String orgId= payment.getOrgID();
+                 String orgId= payment.getOrgID();
                 int userId=payment.getUserId();
                 Log.i("userid", String.valueOf(userId));
 //
@@ -94,7 +96,7 @@ ArrayList<PaymentRequest> card;
         public TextView rupees;
         public TextView issuedDateTime;
         public TextView dueDate;
-         public TextView admission;
+         public TextView admission,overdue;
 
 
         public CardViewHolder(@NonNull View itemView) {
@@ -104,6 +106,8 @@ ArrayList<PaymentRequest> card;
             issuedDateTime = itemView.findViewById(R.id.issued_date_time_tv);
             dueDate = itemView.findViewById(R.id.due_date_tv);
             admission=itemView.findViewById(R.id.admission_fee_tv);
+            overdue=itemView.findViewById(R.id.overduee_in_pr);
+
 
 
         }

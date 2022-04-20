@@ -44,6 +44,23 @@
             app:layout_constraintTop_toTopOf="@+id/textView16" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OVERDUE"
+            android:visibility="gone"
+            android:id="@+id/overduee_in_pr"
+            android:drawablePadding="10dp"
+            android:textColor="#FF414D"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            android:drawableLeft="@drawable/exclamationcircle"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/admission_fee_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/admission_fee_tv" />
+
+
+        <TextView
             android:id="@+id/rs_100"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

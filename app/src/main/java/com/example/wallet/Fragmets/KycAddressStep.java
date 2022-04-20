@@ -20,14 +20,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.wallet.Api.AddressRequest;
 import com.example.wallet.Api.ApiClient;
+import com.example.wallet.Api.GetUserKycResponse;
 import com.example.wallet.Api.LoginService;
 import com.example.wallet.Api.PincodeResponse;
+import com.example.wallet.Api.UpdateDetailsRequest;
+import com.example.wallet.Api.UpdateUserKycResponse;
+import com.example.wallet.Models.AdditionData;
 import com.example.wallet.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -69,6 +76,8 @@ public class KycAddressStep extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_kyc_address_step, container, false);
         apiInit();
+
+        Log.i("num",phoneNumber );
         button =view. findViewById(R.id.proceed_addr_button);
         house = view.findViewById(R.id.house_editText);
         pincode = view.findViewById(R.id.pincode_editText);
@@ -76,15 +85,8 @@ public class KycAddressStep extends Fragment {
         city = view.findViewById(R.id.city_editText);
         country = view.findViewById(R.id.country_editText);
 
-        //
+        getUserKvcStatus();
 
-        String address="{\"city\":\"guwahati\",\"state\":\"Assam\",\"pincode\":\"781003\",\"locality\":\"na\"}";
-
-
-
-        //
-
-        Log.i("name", name);
 
         back = view.findViewById(R.id.backArrow_kvc_seconde_step);
         back.setOnClickListener(new View.OnClickListener() {
@@ -119,14 +121,14 @@ public class KycAddressStep extends Fragment {
                     json.put("state",states);
                     json.put("pincode",pincodes);
                     json.put("locality",houseNo);
+                    json.put("country",countrys);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-
                 message = json.toString();
-
                 Log.i("msg", message);
+                procced(message);
 //                UpdateUserKycRequest updateUserKycRequest=new UpdateUserKycRequest(name,relation,phoneNumber,gender,dateOfbirth,email,message,null,null,null,null,null,null);
 //                Call<UpdateUserKycResponse> call=loginService.updateCall(updateUserKycRequest);
 //                call.enqueue(new Callback<UpdateUserKycResponse>() {
@@ -171,17 +173,42 @@ public class KycAddressStep extends Fragment {
         loginServicePin = ApiClient.getApiServicePin();
     }
 
-    private void procced() {
+    private void procced(String message) {
+        AddressRequest updateUserKycRequest=new AddressRequest(name,relation,phoneNumber,gender,dateOfbirth,email,message);
+            Call<UpdateUserKycResponse> call=loginService.address_call(updateUserKycRequest);
+            call.enqueue(new Callback<UpdateUserKycResponse>() {
+                @Override
+                public void onResponse(Call<UpdateUserKycResponse> call, Response<UpdateUserKycResponse> response) {
+                    if(!response.isSuccessful())
+                    {
+                        try {
+                            Toast.makeText(getActivity(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
+                        }catch (Exception e){
+                            Log.i("onresponse", e.getMessage());
+                        }
+                    }
+                    try {
+
+                        UpdateUserKycResponse generateOtpResponse = response.body();
 
 
-        String houseNo=house.getText().toString().trim();
-        String pincodes=pincode.getText().toString().trim();
-        String states=state.getText().toString().trim();
-        String citys=city.getText().toString().trim();
-        String countrys=country.getText().toString().trim();
+                        Toast.makeText(getActivity(), generateOtpResponse.show.message, Toast.LENGTH_SHORT).show();
+                    }catch(Exception e){
+                        Log.i("TAG", "onResponse: "+e.getMessage());
+                    }
+                }
 
-        Log.i("city", citys);
-    }
+                @Override
+                public void onFailure(Call<UpdateUserKycResponse> call, Throwable t) {
+
+                }
+            });
+
+
+
+        }
+
+
 
     TextWatcher textWatcher=new TextWatcher() {
         @Override
@@ -242,4 +269,49 @@ public class KycAddressStep extends Fragment {
 
         }
     };
+
+    public void getUserKvcStatus(){
+        Call<GetUserKycResponse> call=loginService.getUserCall();
+        call.enqueue(new Callback<GetUserKycResponse>() {
+            @Override
+            public void onResponse(Call<GetUserKycResponse> call, Response<GetUserKycResponse> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(getContext(), String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
+                    Log.i("not", String.valueOf(response.code()));
+                }
+                try {
+
+                    GetUserKycResponse g = response.body();
+                    String addres = g.address;
+                    JSONObject object2 = new JSONObject(addres);
+                    String cityOnResponse = object2.getString("city");
+                    String stateOnResponse = object2.getString("state");
+                    String pincodeOnResponse = object2.getString("pincode");
+                    String localityOnResponse = object2.getString("locality");
+                    String countryOnResponse= object2.getString("country");
+                    house.setText(localityOnResponse);
+                    pincode.setText(pincodeOnResponse);
+                    state.setText(stateOnResponse);
+                    city.setText(cityOnResponse);
+                    country.setText(countryOnResponse);
+
+
+                    Log.i("TAG", "onResponse: hh"+cityOnResponse+stateOnResponse+pincodeOnResponse+localityOnResponse);
+
+
+                } catch (Exception e) {
+
+                    Log.i("E", String.valueOf(e.getMessage()));
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<GetUserKycResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

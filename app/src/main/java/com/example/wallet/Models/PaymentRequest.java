@@ -4,9 +4,10 @@ public class PaymentRequest {
     private String rupees, issuedDateTime, dueDate, feeType,orgID;
     int userId,id;
     String amount;
+    String status;
 
 
-    public PaymentRequest(String rupees, String issuedDateTime, String dueDate, String feeType, String orgID, int userId,int id,String amount) {
+    public PaymentRequest(String rupees, String issuedDateTime, String dueDate, String feeType, String orgID, int userId,int id,String amount,String status) {
         this.rupees = rupees;
         this.issuedDateTime = issuedDateTime;
         this.dueDate = dueDate;
@@ -15,6 +16,7 @@ public class PaymentRequest {
         this.userId = userId;
         this.id=id;
         this.amount=amount;
+        this.status=status;
     }
 
     public String getRupees() {
@@ -47,5 +49,9 @@ public class PaymentRequest {
 
     public String getAmount() {
         return amount;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

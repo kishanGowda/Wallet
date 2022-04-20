@@ -16,6 +16,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
@@ -23,7 +24,7 @@ import retrofit2.http.Query;
 
 public interface LoginService {
 
-    String token = "Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI5MiwicGhvbmUiOiIrOTE4ODg0ODMxMjgyIiwidXJsIjoidGVzdC50aGVjbGFzc3Jvb20uYml6Iiwib3JnSWQiOiI0Y2IyNTA5ZC03MGY1LTQzNWUtODc5Mi1kMjQ5Mzc3NDNiNTMiLCJicm93c2VyTG9naW5Db2RlIjpudWxsLCJkZXZpY2VMb2dpbkNvZGUiOiIrOTE4ODg0ODMxMjgyMTI5MmJhZmI0ZTJiLTc3M2EtNGVmNS1iYmVkLTU4MjM2MGYzYzdhNyIsImlhdCI6MTY0OTQxNTE0NX0.p6mbvNqpGZXUItdODo_7o4qPCANHyOX9TKs1ymlMFnU";
+    String token = "Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI5OSwicGhvbmUiOiIrOTE5OTIzNDU2Nzg5IiwidXJsIjoidGVzdC50aGVjbGFzc3Jvb20uYml6Iiwib3JnSWQiOiI0Y2IyNTA5ZC03MGY1LTQzNWUtODc5Mi1kMjQ5Mzc3NDNiNTMiLCJicm93c2VyTG9naW5Db2RlIjpudWxsLCJkZXZpY2VMb2dpbkNvZGUiOiIrOTE5OTIzNDU2Nzg5MTI5OWIzZjdmNGZlLTJmNjMtNDQxNC1hZDU0LTdiNmM5M2M1MGJjMyIsImlhdCI6MTY1MDM1NDIyMX0.ek9tePNQ8xp1SRQodSLoYQb6-P_i1cyUXJ80Q6NegQI";
     String link = "orgurl:test.theclassroom.biz";
 
     //get user kyc
@@ -77,6 +78,16 @@ public interface LoginService {
     //updateUserKYC
     @Headers({token, link})
     @POST("fee/update-user-kyc")
+    Call<UpdateUserKycResponse> detail_call(@Body UpdateDetailsRequest userKycRequest);
+
+    //updateUserKYC
+    @Headers({token, link})
+    @POST("fee/update-user-kyc")
+    Call<UpdateUserKycResponse> address_call(@Body AddressRequest addressRequest);
+
+    //updateUserKYC
+    @Headers({token, link})
+    @POST("fee/update-user-kyc")
     Call<UpdateUserKycResponse> updateCall(@Body UpdateUserKycRequest userKycRequest);
     // upload doc
 
@@ -86,14 +97,21 @@ public interface LoginService {
     Call<DocUploadResponse> docCall(@Part MultipartBody.Part image);
 
 
-
+        //getcfrt
 
     @Headers({token, link})
     @GET("fee/getcfrt")
     Call<GetCFRTResponse> getCFRTCall(@Query("orderId") String orderId, @Query("orderAmount") double orderAmount, @Query("orderCurrency") String orderCurrency, @Query("id") int id);
-
+//pincode
     @GET("{pincode}")
     Call<List<PincodeResponse>> PINCODE_RESPONSE_CALL(@Path("pincode") Long pincode);
+
+    //update contact info
+    @Headers({token, link})
+    @PATCH("user/update-contact-info")
+    Call<UpdateContactInfoResponse> updateinfoCall(@Body UpdateContactInfoRequest updateContactInfoRequest);
+//p
+
 
 
 }

@@ -26,6 +26,20 @@
         <entry key="..\:/Users/Kishan/AndroidStudioProjects/Wallet/app/src/main/res/layout/payment_option.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/Kishan/AndroidStudioProjects/Wallet/app/src/main/res/layout/payment_request_recyclerview.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/Kishan/AndroidStudioProjects/Wallet/app/src/main/res/layout/payment_succesfull_dialog.xml" value="0.22" />
+        <entry key="..\:/Users/Kishan/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/activity_details_of_cash_free.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/email.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_complete_kyc_details.xml" value="0.25" />
+        <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_fee.xml" value="0.301521438450899" />
+        <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_home_page.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_kyc_address_step.xml" value="0.22" />
+        <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_pan_details.xml" value="0.25" />
+        <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_payment_request.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/kvc_complete.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/payment_option.xml" value="0.2" />
+        <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/payment_request_recyclerview.xml" value="0.33" />
+        <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/popup.xml" value="0.2" />
       </map>
     </option>
   </component>
