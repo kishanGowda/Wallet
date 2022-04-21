@@ -46,15 +46,13 @@ import com.example.wallet.Api.ApiClient;
 import com.example.wallet.Api.GetCFRTResponse;
 import com.example.wallet.Api.LoginService;
 import com.example.wallet.Api.TockenResponse;
-import com.example.wallet.GetFilterWalletResponse;
+import com.example.wallet.Adapters.GetFilterWalletResponse;
 import com.example.wallet.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;

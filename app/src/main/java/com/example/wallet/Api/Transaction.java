@@ -11,7 +11,7 @@ public class Transaction {
     public Object transferDate;
     public Object paymentId;
     public String amount;
-    public double transactionFee;
+    public float transactionFee;
     public double settlementFee;
     public double amountPayable;
     public double processignPaidByIns;

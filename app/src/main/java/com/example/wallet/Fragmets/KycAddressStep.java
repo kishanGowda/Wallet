@@ -50,6 +50,7 @@ public class KycAddressStep extends Fragment {
     ProgressDialog dialog;
     String message;
     JSONObject json;
+    private static final String TAG = "KycAddressStep";
 
     EditText house, pincode;
     LoginService loginService,loginServicePin;
@@ -280,7 +281,7 @@ public class KycAddressStep extends Fragment {
                     Log.i("not", String.valueOf(response.code()));
                 }
                 try {
-
+                    Log.i("TAG", "onResponse: banhu");
                     GetUserKycResponse g = response.body();
                     String addres = g.address;
                     JSONObject object2 = new JSONObject(addres);
@@ -294,14 +295,12 @@ public class KycAddressStep extends Fragment {
                     state.setText(stateOnResponse);
                     city.setText(cityOnResponse);
                     country.setText(countryOnResponse);
-
-
                     Log.i("TAG", "onResponse: hh"+cityOnResponse+stateOnResponse+pincodeOnResponse+localityOnResponse);
 
 
                 } catch (Exception e) {
 
-                    Log.i("E", String.valueOf(e.getMessage()));
+                    Log.i(TAG, String.valueOf(e.getMessage()));
                 }
 
 

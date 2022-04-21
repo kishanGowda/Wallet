@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.wallet.Adapters.PaymentRequestAdapterTwo;
 import com.example.wallet.Api.ApiClient;
 import com.example.wallet.Api.LoginService;
-import com.example.wallet.GetFilterWalletResponse;
+import com.example.wallet.Adapters.GetFilterWalletResponse;
 import com.example.wallet.Models.PaymentRequest;
 import com.example.wallet.R;
 
@@ -87,7 +87,7 @@ public class PaymentRequestFragment extends Fragment {
                         Log.i("TAG_id", String.valueOf(getFilterWalletResponse.transactions.get(i).id));
                         Log.i("TAG_userId", String.valueOf(getFilterWalletResponse.transactions.get(i).userId));
 //
-                        card.add(new PaymentRequest("₹"+getFilterWalletResponse.transactions.get(i).amount,
+                        card.add(new PaymentRequest("₹"+getFilterWalletResponse.transactions.get(i).amountPayable,
                                 getFilterWalletResponse.transactions.get(i).date,
                                 getFilterWalletResponse.transactions.get(i).dueDate,
                                 getFilterWalletResponse.transactions.get(i).note,

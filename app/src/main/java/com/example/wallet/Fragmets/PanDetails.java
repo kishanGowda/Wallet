@@ -39,10 +39,8 @@ import com.example.wallet.Api.DeleteDocument;
 import com.example.wallet.Api.DocUploadResponse;
 import com.example.wallet.Api.GetUserKycResponse;
 import com.example.wallet.Api.LoginService;
-import com.example.wallet.Api.PincodeResponse;
 import com.example.wallet.Api.UpdateUserKycRequest;
 import com.example.wallet.Api.UpdateUserKycResponse;
-import com.example.wallet.HomePage;
 import com.example.wallet.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -50,7 +48,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -838,6 +835,28 @@ public class PanDetails extends Fragment {
                             frontText.setText("Aadhar front");
                             backText.setText("Aadhar Back");
                             documentNumber.setHint("Enter Aadhar card number");
+                            documentNumber.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable editable) {
+                                    if(documentNumber.getText().toString().trim().length()==12){
+                                        button.setEnabled(true);
+                                    }
+                                    else {
+                                        button.setEnabled(false);
+
+                                    }
+                                }
+                            });
                             aadharfor = true;
                             driving = false;
                             passport = false;
@@ -850,6 +869,29 @@ public class PanDetails extends Fragment {
                             frontText.setText("Voter front");
                             backText.setText("Voter Back");
                             documentNumber.setHint("Enter voter ID number");
+                            documentNumber.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable editable) {
+                                    if(documentNumber.getText().toString().trim().length()==10){
+                                        button.setEnabled(true);
+                                    }
+                                    else {
+                                        button.setEnabled(false);
+
+                                    }
+                                }
+                            });
+
                             aadharfor = false;
                             driving = false;
                             passport = false;
@@ -859,6 +901,29 @@ public class PanDetails extends Fragment {
                             proof.setText("Driving licence");
                             addharNumber.setText("driving-ID Number");
                             documentNumber.setHint("Enter driving Licence number");
+                            documentNumber.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable editable) {
+                                    if(documentNumber.getText().toString().trim().length()==10){
+                                        button.setEnabled(true);
+                                    }
+                                    else {
+                                        button.setEnabled(false);
+
+                                    }
+                                }
+                            });
+
                             frontText.setText("driving front");
                             backText.setText("driving Back");
                             aadharfor = false;

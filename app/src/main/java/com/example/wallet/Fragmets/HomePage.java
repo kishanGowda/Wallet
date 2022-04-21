@@ -1,4 +1,4 @@
-package com.example.wallet;
+package com.example.wallet.Fragmets;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
@@ -18,16 +19,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wallet.Adapters.GetFilterWalletResponse;
 import com.example.wallet.Api.ApiClient;
 import com.example.wallet.Api.GetUserKycResponse;
 import com.example.wallet.Api.LoginService;
 import com.example.wallet.Fragmets.CompleteKycDetails;
 import com.example.wallet.Fragmets.DetailsOfCashFree;
-import com.example.wallet.Fragmets.DetailsOfPayment;
 import com.example.wallet.Fragmets.Fee;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.example.wallet.R;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +41,7 @@ Retrofit retrofit;
 LoginService loginService;
 int size=0;
 Button pay;
+NavController navController;
 TextView note,rs,issueDate,dueDate;
 ConstraintLayout admisiion;
     GetFilterWalletResponse getFilterWalletResponse;
@@ -85,6 +85,9 @@ ConstraintLayout admisiion;
         viewText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                NavDirections nav=HomePageDirections.actionHomePageToFee();
+//                navController.navigate(nav);
+
                 Fragment fragment = new Fee();
                 FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
@@ -173,7 +176,13 @@ return view;
                     } else {
                         admisiion.setVisibility(View.VISIBLE);
                         note.setText(getFilterWalletResponse.transactions.get(0).note);
-                        rs.setText("₹ " +getFilterWalletResponse.transactions.get(0).amount);
+
+                        if(getFilterWalletResponse.transactions.get(0).transactionPaidBy.equalsIgnoreCase("student")){
+                            rs.setText("₹ " +getFilterWalletResponse.transactions.get(0).amountPayable);
+                        }
+                        else {
+                            rs.setText("₹ " + getFilterWalletResponse.transactions.get(0).amount);
+                        }
                         issueDate.setText(getFilterWalletResponse.transactions.get(0).date);
                         dueDate.setText(getFilterWalletResponse.transactions.get(0).dueDate);
 

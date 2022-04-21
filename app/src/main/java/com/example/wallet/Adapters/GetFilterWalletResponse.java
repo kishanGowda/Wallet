@@ -1,4 +1,4 @@
-package com.example.wallet;
+package com.example.wallet.Adapters;
 
 import com.example.wallet.Api.Transaction;
 

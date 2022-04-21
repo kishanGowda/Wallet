@@ -1,5 +1,8 @@
 package com.example.wallet.Fragmets;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -11,10 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +30,7 @@ import com.example.wallet.Adapters.PaymentRequestAdapter;
 import com.example.wallet.Api.ApiClient;
 import com.example.wallet.Api.GetWalletResponse;
 import com.example.wallet.Api.LoginService;
-import com.example.wallet.GetFilterWalletResponse;
+import com.example.wallet.Adapters.GetFilterWalletResponse;
 import com.example.wallet.Models.PaymentRequest;
 import com.example.wallet.R;
 
@@ -42,7 +48,8 @@ TextView requestPending,pending,refunded,overdue,requestPendingText,pendingText,
 GetFilterWalletResponse getFilterWalletResponse;
 Retrofit retrofit;
 int size;
-RecyclerView recyclerView;
+    Dialog mdialog;
+    RecyclerView recyclerView;
 LinearLayoutManager layoutManager;
     ArrayList<PaymentRequest> card ;
 LoginService loginService;
@@ -76,6 +83,34 @@ ImageView back,arrow;
         arrow=view.findViewById(R.id.arrow);
         overdueText=view.findViewById(R.id.one_overdue_tv);
         back=view.findViewById(R.id.backArrow);
+
+
+
+        requestPending.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (requestPending.getText().toString().trim().isEmpty()) {
+                    mdialog = new Dialog(getActivity());
+                    mdialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
+                    mdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    mdialog.setContentView(R.layout.loading_dailog);
+                    mdialog.show();
+                }
+                else {
+
+                }
+            }
+        });
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,18 +177,20 @@ ImageView back,arrow;
 
                     sizes(length);
                     Log.i("length", String.valueOf(length));
+
+
                     if (length == 0) {
 
                     } else if (length >= 3) {
                         for (int i = 0; i <= 2; i++) {
-                            card.add(new PaymentRequest("₹ " +getFilterWalletResponse.transactions.get(i).amount, getFilterWalletResponse.transactions.get(i).date, getFilterWalletResponse.transactions.get(i).dueDate, getFilterWalletResponse.transactions.get(i).note,getFilterWalletResponse.transactions.get(i).orgId,getFilterWalletResponse.transactions.get(i).userId,getFilterWalletResponse.transactions.get(i).id,getFilterWalletResponse.transactions.get(i).amount,getFilterWalletResponse.transactions.get(i).status));
+                            card.add(new PaymentRequest("₹ " +getFilterWalletResponse.transactions.get(i).amountPayable, getFilterWalletResponse.transactions.get(i).date, getFilterWalletResponse.transactions.get(i).dueDate, getFilterWalletResponse.transactions.get(i).note,getFilterWalletResponse.transactions.get(i).orgId,getFilterWalletResponse.transactions.get(i).userId,getFilterWalletResponse.transactions.get(i).id,getFilterWalletResponse.transactions.get(i).amount,getFilterWalletResponse.transactions.get(i).status));
 
                         }
                         buildRecyclerView();
                     } else
                     {
                         for (int i = 0; i <= length - 1; i++) {
-                            card.add(new PaymentRequest("₹ " +getFilterWalletResponse.transactions.get(i).amount, getFilterWalletResponse.transactions.get(i).date, getFilterWalletResponse.transactions.get(i).dueDate, getFilterWalletResponse.transactions.get(i).note,getFilterWalletResponse.transactions.get(i).orgId,getFilterWalletResponse.transactions.get(i).userId,getFilterWalletResponse.transactions.get(i).id,getFilterWalletResponse.transactions.get(i).amount,getFilterWalletResponse.transactions.get(i).status));
+                            card.add(new PaymentRequest("₹ " +getFilterWalletResponse.transactions.get(i).amountPayable, getFilterWalletResponse.transactions.get(i).date, getFilterWalletResponse.transactions.get(i).dueDate, getFilterWalletResponse.transactions.get(i).note,getFilterWalletResponse.transactions.get(i).orgId,getFilterWalletResponse.transactions.get(i).userId,getFilterWalletResponse.transactions.get(i).id,getFilterWalletResponse.transactions.get(i).amount,getFilterWalletResponse.transactions.get(i).status));
                         }
                         buildRecyclerView();
                     }
@@ -228,28 +265,7 @@ ImageView back,arrow;
 
         });
     }
-
-//    {
-//        Call<GetWalletResponse> call=loginService.getWalletCall();
-//        call.enqueue(new Callback<GetWalletResponse>() {
-//            @Override
-//            public void onResponse(Call<GetWalletResponse> call, Response<GetWalletResponse> response) {
-//                if(!response.isSuccessful())
-//                {
-//                    Toast.makeText(getActivity(), response.code(), Toast.LENGTH_SHORT).show();
-//                }
-//              GetWalletResponse  getWalletResponse=response.body();
-
-//            }
-//
-//            @Override
-//            public void onFailure(Call<GetWalletResponse> call, Throwable t) {
-//                Toast.makeText(getActivity(), String.valueOf(t.getMessage()), Toast.LENGTH_SHORT).show();
-//                Log.i("TAG", String.valueOf(t.getMessage()));
-//            }
-//        });
-//    }
-
+    
 
 
 }

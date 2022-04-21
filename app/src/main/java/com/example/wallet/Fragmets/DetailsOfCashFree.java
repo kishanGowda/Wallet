@@ -17,9 +17,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,12 +38,11 @@ import com.example.wallet.Api.TockenResponse;
 import com.example.wallet.Api.UpdateContactInfoRequest;
 import com.example.wallet.Api.UpdateContactInfoResponse;
 import com.example.wallet.Api.VerifySignature;
-import com.example.wallet.GetFilterWalletResponse;
+import com.example.wallet.Adapters.GetFilterWalletResponse;
 import com.example.wallet.Models.AdditionData;
 import com.example.wallet.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,6 +68,7 @@ public class DetailsOfCashFree extends AppCompatActivity {
     TextView dueDate, tokens;
     TextView amountTwo;
     TextView gst;
+    TextView te;
     TextView convinesce;
     TextView totalAmount;
     TextView dicount,noteTextView;
@@ -133,6 +133,7 @@ private static final String TAG = "DetailsOfCashFree";
         dicount = findViewById(R.id.discount_rs_tv);
         totalAmount = findViewById(R.id.total_amount_rs_tv);
         noteTextView=findViewById(R.id.admission_fee_tv);
+        te=findViewById(R.id.tokens);
 
 
         filterWalletTwo();
@@ -151,108 +152,218 @@ onBackPressed();
             @Override
             public void onClick(View view) {
 
+                if (getFilterWalletResponse.transactions.get(Integer.valueOf(position)).user.email != null) {
+                    mBottomSheetDialog = new BottomSheetDialog(DetailsOfCashFree.this, R.style.AppBottomSheetDialogTheme);
+                    mBottomSheetDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    sheetView = LayoutInflater.from(DetailsOfCashFree.this).inflate(R.layout.payment_option, null);
+                    mBottomSheetDialog.setContentView(sheetView);
+                    mBottomSheetDialog.setCanceledOnTouchOutside(true);
+                    upi = sheetView.findViewById(R.id.upi_tv);
+                    other = sheetView.findViewById(R.id.other_tv);
+                    upi.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
-                mdialog = new Dialog(DetailsOfCashFree.this);
-                mdialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
-                mdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                mdialog.setContentView(R.layout.email);
-                Button next = mdialog.findViewById(R.id.next);
-                //
 
-
-                //
-
-
-
-
-                next.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        mdialog.dismiss();
-                        c1 = (EditText) mdialog.findViewById(R.id.editTextTextPersonEmail);
-
-                        String email = c1.getText().toString().trim();
-
-                        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-
-// onClick of button perform this simplest code.
-                        if (email.matches(emailPattern))
-                        {
-                            UpdateContactInfoRequest updateContactInfoRequest=new UpdateContactInfoRequest(email);
-                            Call<UpdateContactInfoResponse> call=loginService.updateinfoCall(updateContactInfoRequest);
-                            call.enqueue(new Callback<UpdateContactInfoResponse>() {
+                            if(getFilterWalletResponse.transactions.get(Integer.valueOf(position)).transactionPaidBy.equalsIgnoreCase("student")){
+                                String tranFee=convinesce.getText().toString();
+                                Log.i(TAG, "onClick: "+tranFee);
+                                Log.i(TAG, "amount"+amounts);
+                                String totalAmount=String.valueOf(Float.parseFloat(amounts)-Float.parseFloat(tranFee));
+                                amounts=String.valueOf(totalAmount);
+                                Log.i(TAG, "total amount"+totalAmount);
+                                          }
+                            getTokenResponse();
+                            te.addTextChangedListener(new TextWatcher() {
                                 @Override
-                                public void onResponse(Call<UpdateContactInfoResponse> call, Response<UpdateContactInfoResponse> response) {
-                                    if (!response.isSuccessful()) {
-                                        Toast.makeText(getApplicationContext(), response.code(), Toast.LENGTH_SHORT).show();
-                                    }
-                                    UpdateContactInfoResponse updateContactInfoResponse = response.body();
-                                    Toast.makeText(getApplicationContext(), String.valueOf(updateContactInfoResponse.show.message), Toast.LENGTH_LONG).show();
-                                    if (updateContactInfoResponse.show.type.equalsIgnoreCase("success")) {
-                                        mdialog.dismiss();
-                                    mBottomSheetDialog = new BottomSheetDialog(DetailsOfCashFree.this, R.style.AppBottomSheetDialogTheme);
-                                    mBottomSheetDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                                    sheetView = LayoutInflater.from(DetailsOfCashFree.this).inflate(R.layout.payment_option, null);
-                                    mBottomSheetDialog.setContentView(sheetView);
-                                    mBottomSheetDialog.setCanceledOnTouchOutside(true);
-                                    upi = sheetView.findViewById(R.id.upi_tv);
-                                    other = sheetView.findViewById(R.id.other_tv);
-                                    upi.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            mdialog.dismiss();
-                                            Log.i("TAG", "onClick: ");
-                                            String token= "";
-                                            token = getTokenResponse();
-                                            while(token.length() > 1){
-                                                Log.i("TAG", "onClick: while loop called");
-                                            }
-                                            // starting the payment method
-                                            paymethod(view);
+                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                                        }
-                                    });
-
-
-                                    other.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            Log.i("TAG", "hello");
-                                            paymethod(view);
-                                        }
-                                    });
-
-                                    mBottomSheetDialog.setContentView(sheetView);
-                                    mBottomSheetDialog.show();
                                 }
-                            }
 
                                 @Override
-                                public void onFailure(Call<UpdateContactInfoResponse> call, Throwable t) {
-                                    Toast.makeText(getApplicationContext(), "error update contact info", Toast.LENGTH_SHORT).show();
+                                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable editable) {
+                                    token = te.getText().toString();
+                                    if (te.getText().toString().trim() != null) {
+                                        paymethod(view);
+
+                                    }
                                 }
                             });
 
 
-                        }
-                        else
-                        {
-                            Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_SHORT).show();
-                        }
-
-
-
+//                                            getTokenResponse();
+//                                            paymethod(view);
 
                         }
+                    });
 
 
+                    other.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            getTokenResponse();
+                            te.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable editable) {
+                                    token = te.getText().toString();
+                                    if (te.getText().toString().trim() != null) {
+                                        paymethod(view);
+
+                                    }
+                                }
+                            });
+
+                        }
+                    });
+
+                    mBottomSheetDialog.setContentView(sheetView);
+                    mBottomSheetDialog.show();
+
+                } else {
 
 
-                });
-                mdialog.show();
+                    mdialog = new Dialog(DetailsOfCashFree.this);
+                    mdialog.requestWindowFeature(Window.FEATURE_LEFT_ICON);
+                    mdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    mdialog.setContentView(R.layout.email);
+                    Button next = mdialog.findViewById(R.id.next);
+
+                    next.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+                            mdialog.dismiss();
+                            c1 = (EditText) mdialog.findViewById(R.id.editTextTextPersonEmail);
+
+                            String email = c1.getText().toString().trim();
+
+                            String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+// onClick of button perform this simplest code.
+                            if (email.matches(emailPattern)) {
+                                UpdateContactInfoRequest updateContactInfoRequest = new UpdateContactInfoRequest(email);
+                                Call<UpdateContactInfoResponse> call = loginService.updateinfoCall(updateContactInfoRequest);
+                                call.enqueue(new Callback<UpdateContactInfoResponse>() {
+                                    @Override
+                                    public void onResponse(Call<UpdateContactInfoResponse> call, Response<UpdateContactInfoResponse> response) {
+                                        if (!response.isSuccessful()) {
+                                            Toast.makeText(getApplicationContext(), response.code(), Toast.LENGTH_SHORT).show();
+                                        }
+                                        UpdateContactInfoResponse updateContactInfoResponse = response.body();
+                                        Toast.makeText(getApplicationContext(), String.valueOf(updateContactInfoResponse.show.message), Toast.LENGTH_LONG).show();
+                                        if (updateContactInfoResponse.show.type.equalsIgnoreCase("success")) {
+                                            mdialog.dismiss();
+                                            mBottomSheetDialog = new BottomSheetDialog(DetailsOfCashFree.this, R.style.AppBottomSheetDialogTheme);
+                                            mBottomSheetDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                            sheetView = LayoutInflater.from(DetailsOfCashFree.this).inflate(R.layout.payment_option, null);
+                                            mBottomSheetDialog.setContentView(sheetView);
+                                            mBottomSheetDialog.setCanceledOnTouchOutside(true);
+                                            upi = sheetView.findViewById(R.id.upi_tv);
+                                            other = sheetView.findViewById(R.id.other_tv);
+                                            upi.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    mdialog.dismiss();
+                                                    getTokenResponse();
+                                                    te.addTextChangedListener(new TextWatcher() {
+                                                        @Override
+                                                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void afterTextChanged(Editable editable) {
+                                                            token = te.getText().toString();
+                                                            if (te.getText().toString().trim() != null) {
+                                                                paymethod(view);
+
+                                                            }
+                                                        }
+                                                    });
 
 
+//                                            getTokenResponse();
+//                                            paymethod(view);
+
+                                                }
+                                            });
+
+
+                                            other.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    mdialog.dismiss();
+                                                    getTokenResponse();
+                                                    te.addTextChangedListener(new TextWatcher() {
+                                                        @Override
+                                                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                                        }
+
+                                                        @Override
+                                                        public void afterTextChanged(Editable editable) {
+                                                            token = te.getText().toString();
+                                                            if (te.getText().toString().trim() != null) {
+                                                                paymethod(view);
+
+                                                            }
+                                                        }
+                                                    });
+
+                                                }
+                                            });
+
+                                            mBottomSheetDialog.setContentView(sheetView);
+                                            mBottomSheetDialog.show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<UpdateContactInfoResponse> call, Throwable t) {
+                                        Toast.makeText(getApplicationContext(), "error update contact info", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT).show();
+                            }
+
+
+                        }
+
+
+                    });
+                    mdialog.show();
+
+
+                }
             }
         });
     }
@@ -272,11 +383,12 @@ onBackPressed();
               break;
             }
             case R.id.other_tv:{
+                Log.i(TAG, "paymethod: "+token);
                 Log.i("kishan","hello");
                 try {
                     cfPaymentService.doPayment(DetailsOfCashFree.this, getInputParams(), token, stage, "#784BD2", "#FFFFFF", true);
                 }catch (Exception e){
-                    Log.i("kishan", e.getMessage());
+                    Log.i("error", e.getMessage());
                 }
                 break;
 
@@ -378,6 +490,7 @@ onBackPressed();
         String appId = "132251d7dc08cd6f7ae20edc8a152231";
         String orderId = orderID;
         String orderAmount = amounts;
+        Log.i(TAG, "getInput: "+amounts);
         String orderNote = "Test Order";
         String customerName = "kisha";
         String customerPhone = "8884831284";
@@ -402,6 +515,7 @@ onBackPressed();
         String appId = "132251d7dc08cd6f7ae20edc8a152231";
         String orderId = orderID;
         String orderAmount = amounts;
+        Log.i(TAG, "getInputParams: "+amounts);
         String orderNote = "Test Order";
         String customerName = "kisha";
         String customerPhone = "8884831284";
@@ -421,52 +535,7 @@ onBackPressed();
         params.put(PARAM_PAYMENT_MODES, "cc,wallet,dc");
         return params;
     }
-//
-//        @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if(data!=null){
-//            Bundle bundle=data.getExtras();
-//            if (bundle!=null)
-//                for (String key:bundle.keySet()){
-//                    if (bundle.getString(key)!=null){
-//                        Log.i("TAG", key+":"+bundle.getString(key));
-//                    }
-//                }
-//        }
-//        Log.d("TAG", "ReqCode : " + CFPaymentService.REQ_CODE);
-//        Log.d("TAG", "API Response : ");
-//        if (requestCode == CFPaymentService.REQ_CODE && data != null) {
-//            Bundle bundle = data.getExtras();
-//            if (bundle != null) {
-//                showResponse(transformBundleToString(bundle));
-//            }
-//
-//        }
-//    }
-//
-//    private void showResponse(String response) {
-//        Log.i(TAG, "showResponse: ");
-//        final AlertDialog show = new MaterialAlertDialogBuilder(DetailsOfCashFree.this)
-//                .setMessage(response)
-//
-//                .setTitle("Payment Response")
-//
-//                .setPositiveButton("ok", (dialog1, which) -> {
-//                    dialog1.dismiss();
-//                }).show();
-//    }
-//
-//    private String transformBundleToString(Bundle bundle) {
-//        String response = "";
-//        for (String key : bundle.keySet()) {
-//            response = response.concat(String.format("%s : %s\n", key, bundle.getString(key)));
-//        }
-//        Log.i("response", "transformBundleToString: " + response);
-//        return response;
-//
-//    }
+
 
 
 
@@ -497,7 +566,12 @@ onBackPressed();
                 String orgId = getFilterWalletResponse.transactions.get(index).orgId;
                 int userId = getFilterWalletResponse.transactions.get(index).user.id;
                 orgnization(orgId, userId);
-                amount.setText("₹ " + getFilterWalletResponse.transactions.get(index).amount);
+
+                if(getFilterWalletResponse.transactions.get(index).transactionPaidBy.equalsIgnoreCase("student")){
+                    amount.setText("₹ " + getFilterWalletResponse.transactions.get(index).amountPayable);
+                }else {
+                    amount.setText("₹ " + getFilterWalletResponse.transactions.get(index).amount);
+                }
                 issued_date_time_tv.setText(getFilterWalletResponse.transactions.get(index).date);
                 dueDate.setText(getFilterWalletResponse.transactions.get(index).dueDate);
                 amountTwo.setText("₹ "+getFilterWalletResponse.transactions.get(index).amount);
@@ -534,70 +608,13 @@ onBackPressed();
 
     }
 
-//    class RetrivePDFfromUrl extends AsyncTask<String, Void, String> {
-//        @Override
-//        protected String doInBackground(String... strings) {
-//            // we are using inputstream
-//            // for getting out PDF.
-//            InputStream inputStream = null;
-//            final String[] t = new String[1];
-//            try {
-//                Call<GetCFRTResponse> tokenResponseCall = loginService.getCFRTCall(orderID, Double.parseDouble(amounts), "INR", Integer.valueOf(id));
-//                tokenResponseCall.enqueue(new Callback<GetCFRTResponse>() {
-//                    @Override
-//                    public void onResponse(Call<GetCFRTResponse> call, Response<GetCFRTResponse> response) {
-//                        if (!response.isSuccessful()) {
-//                            Toast.makeText(DetailsOfCashFree.this, String.valueOf(response.code()), Toast.LENGTH_LONG).show();
-//                        }
-//                        GetCFRTResponse tockenResponse = response.body();
-//                        t[0] = tockenResponse.body.cftoken;
-//                        Log.i("TAG_token", t[0]);
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<GetCFRTResponse> call, Throwable t) {
-//
-//                    }
-//                });
-//
-////                URL url = new URL(strings[0]);
-////                // below is the step where we are
-////                // creating our connection.
-////                HttpURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
-////                if (urlConnection.getResponseCode() == 200) {
-////                    // response is success.
-////                    // we are getting input stream from url
-////                    // and storing it in our variable.
-////                    inputStream = new BufferedInputStream(urlConnection.getInputStream());
-//
-//
-//            } catch (Exception e) {
-//                // this is the method
-//                // to handle errors.
-//                e.printStackTrace();
-//                return null;
-//            }
-//            return t[0];
-//        }
-
-//        @Override
-//        protected void onPostExecute(String t) {
-//            // after the execution of our async
-//            // task we are loading our pdf in our pdf view.
-//           // pdfView.fromStream(inputStream).load();
-//            token=t;
-//
-//            Toast.makeText(DetailsOfCashFree.this, token, Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
     public String getTokenResponse() {
         ProgressDialog dialog=new ProgressDialog(DetailsOfCashFree.this);
         dialog.setMessage("Loading");
         dialog.setCancelable(false);
         dialog.setInverseBackgroundForced(false);
         dialog.show();
+        Log.i(TAG, "getTokenResponse: "+amounts);
         Call<GetCFRTResponse> tokenResponseCall = loginService.getCFRTCall(orderID, Double.parseDouble(amounts), "INR", Integer.valueOf(id));
         tokenResponseCall.enqueue(new Callback<GetCFRTResponse>() {
             @Override
@@ -606,30 +623,9 @@ onBackPressed();
                     Toast.makeText(DetailsOfCashFree.this, String.valueOf(response.code()), Toast.LENGTH_LONG).show();
                 }
                 GetCFRTResponse tockenResponse = response.body();
-                t = tockenResponse.body.cftoken;
+                te.setText(String.valueOf(tockenResponse.body.cftoken));
 
                 token=t;
-
-
-
-//                final Handler handler = new Handler();
-//                dialog.show();
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        // Do something after 5s = 5000ms
-//                        token=t;
-//                        Log.i("TAG", "enterd");
-//                        Log.i("TAG", String.valueOf(token));
-//                        dialog.dismiss();
-//                    }
-//
-//                }, 5000);
-//                Log.i("TAG", "enterd after");
-//
-//                Log.i("orderId", orderID);
-
-
 
             }
 

@@ -1,12 +1,7 @@
 package com.example.wallet.Api;
 
-import com.example.wallet.GetFilterWalletResponse;
-import com.example.wallet.Models.ChildModel;
-import com.example.wallet.Models.PaymentRequest;
+import com.example.wallet.Adapters.GetFilterWalletResponse;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -24,7 +19,7 @@ import retrofit2.http.Query;
 
 public interface LoginService {
 
-    String token = "Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI5OSwicGhvbmUiOiIrOTE5OTIzNDU2Nzg5IiwidXJsIjoidGVzdC50aGVjbGFzc3Jvb20uYml6Iiwib3JnSWQiOiI0Y2IyNTA5ZC03MGY1LTQzNWUtODc5Mi1kMjQ5Mzc3NDNiNTMiLCJicm93c2VyTG9naW5Db2RlIjpudWxsLCJkZXZpY2VMb2dpbkNvZGUiOiIrOTE5OTIzNDU2Nzg5MTI5OWIzZjdmNGZlLTJmNjMtNDQxNC1hZDU0LTdiNmM5M2M1MGJjMyIsImlhdCI6MTY1MDM1NDIyMX0.ek9tePNQ8xp1SRQodSLoYQb6-P_i1cyUXJ80Q6NegQI";
+    String token = "Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTI5MiwicGhvbmUiOiIrOTE4ODg0ODMxMjgyIiwidXJsIjoidGVzdC50aGVjbGFzc3Jvb20uYml6Iiwib3JnSWQiOiI0Y2IyNTA5ZC03MGY1LTQzNWUtODc5Mi1kMjQ5Mzc3NDNiNTMiLCJicm93c2VyTG9naW5Db2RlIjpudWxsLCJkZXZpY2VMb2dpbkNvZGUiOiIrOTE4ODg0ODMxMjgyMTI5MjBjZDNmZmJlLTIxMmItNDA2My05NDQ1LTBhZjc2MmIyODY2OSIsImlhdCI6MTY1MDUyNDE0NH0.oIKsV_U6UvkLnz0guP__pc50gc_iRRdodgk8GBbkdnM";
     String link = "orgurl:test.theclassroom.biz";
 
     //get user kyc
