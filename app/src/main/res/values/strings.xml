@@ -11,6 +11,7 @@
 
 
     <string-array name="Relationship">
+        <item>Self</item>
         <item>Father</item>
         <item>Mother</item>
         <item>Sister</item>
@@ -25,7 +26,7 @@
         <item>kerala</item>
     </string-array>
 
-    <string-array name="Desrict">
+    <string-array name="District">
         <item>Ramanagara</item>
         <item>Bangalore</item>
         <item>daravada</item>
