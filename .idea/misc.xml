@@ -41,6 +41,30 @@
         <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/payment_option.xml" value="0.2" />
         <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/payment_request_recyclerview.xml" value="0.33" />
         <entry key="..\:/Users/Kishan/Desktop/AndroidStudioProjects/Wallet/app/src/main/res/layout/popup.xml" value="0.2" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/drawable/stroke_box.xml" value="0.192" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/activity_details_of_cash_free.xml" value="0.13632246376811594" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/activity_main.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/activity_view_receipt.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/bottom_sheet_view_receipt.xml" value="0.19322916666666667" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/dialog_box_view_receipt.xml" value="0.33" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/dialog_otp.xml" value="0.19427083333333334" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_complete_kyc_details.xml" value="0.33" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_details_of_payment.xml" value="0.16304347826086957" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_fee.xml" value="0.33" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_history_payment.xml" value="0.5" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_home_page.xml" value="0.33" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_kyc_address_step.xml" value="0.25" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_pan_details.xml" value="0.18" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_payment_request.xml" value="0.25" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_remaining_k_y_c.xml" value="0.2" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/fragment_view_receipt.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/loading_dailog.xml" value="0.19427083333333334" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/options.xml" value="0.33" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/parent_recyclerview_items.xml" value="0.33" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/payment_history_recyclerview.xml" value="0.33" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/payment_option.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Sneha/AndroidStudioProjects/Wallet/app/src/main/res/layout/payment_request_recyclerview.xml" value="0.5" />
+        <entry key="..\:/Users/Sneha/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.17074275362318841" />
       </map>
     </option>
   </component>

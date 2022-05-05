@@ -12,6 +12,7 @@ import static com.cashfree.pg.CFPaymentService.PARAM_PAYMENT_MODES;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -97,6 +98,7 @@ private static final String TAG = "DetailsOfCashFree";
     String id;
     String amounts;
 
+    @SuppressLint("SuspiciousIndentation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

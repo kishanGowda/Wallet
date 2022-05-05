@@ -31,11 +31,12 @@
 
     <TextView
         android:id="@+id/upi_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="Upi"
+        android:text="UPI"
+        android:layout_marginEnd="80dp"
         android:onClick="paymethod"
         android:textColor="#191919"
         android:textSize="16sp"
@@ -43,11 +44,12 @@
 
     <TextView
         android:id="@+id/other_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="other"
+        android:layout_marginEnd="80dp"
+        android:text="Other"
         android:layout_marginBottom="20dp"
         android:textColor="#191919"
         android:textSize="16sp"

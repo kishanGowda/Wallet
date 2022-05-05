@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
@@ -64,6 +66,7 @@ ConstraintLayout admisiion;
         rs=view.findViewById(R.id.rs_100);
         issueDate=view.findViewById(R.id.issued_date_time_tv);
         dueDate=view.findViewById(R.id.due_date_tv);
+        NavController navController = NavHostFragment.findNavController(this);
 
         apiInIt();
         filterWallet();
@@ -85,20 +88,20 @@ ConstraintLayout admisiion;
         viewText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                NavDirections nav=HomePageDirections.actionHomePageToFee();
-//                navController.navigate(nav);
+                NavDirections nav=HomePageDirections.actionHomePageToFee();
+                navController.navigate(nav);
 
-                Fragment fragment = new Fee();
-                FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
-                        R.anim.slide_in,  // enter
-                        R.anim.fade_out,  // exit
-                        R.anim.fade_in,   // popEnter
-                        R.anim.slide_out  // popExit
-                );
-                fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+//                Fragment fragment = new Fee();
+//                FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
+//                        R.anim.slide_in,  // enter
+//                        R.anim.fade_out,  // exit
+//                        R.anim.fade_in,   // popEnter
+//                        R.anim.slide_out  // popExit
+//                );
+//                fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
             }
         });
         admisiion=view.findViewById(R.id.admission_layout);
@@ -121,6 +124,8 @@ ConstraintLayout admisiion;
                 String  amount= String.valueOf(getFilterWalletResponse.transactions.get(0).amountPayable);
                 Log.i("TAG", amount);
                 int position=0;
+//                NavDirections nav= HomePageDirections.actionHomePageToDetailsOfCashFree(order,id,amount,position);
+//                navController.navigate(nav);
                 Intent intent = new Intent(getActivity(), DetailsOfCashFree.class);
                 intent.putExtra("order",order);
                 intent.putExtra("ids",String.valueOf(id));
@@ -136,17 +141,19 @@ ConstraintLayout admisiion;
         completeKycButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new CompleteKycDetails();
-                FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
-                        R.anim.slide_in,  // enter
-                        R.anim.fade_out,  // exit
-                        R.anim.fade_in,   // popEnter
-                        R.anim.slide_out  // popExit
-                );
-                fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                NavDirections nav= HomePageDirections.actionHomePageToCompleteKycDetails();
+                navController.navigate(nav);
+//                Fragment fragment = new CompleteKycDetails();
+//                FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
+//                        R.anim.slide_in,  // enter
+//                        R.anim.fade_out,  // exit
+//                        R.anim.fade_in,   // popEnter
+//                        R.anim.slide_out  // popExit
+//                );
+//                fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
             }
         });
 

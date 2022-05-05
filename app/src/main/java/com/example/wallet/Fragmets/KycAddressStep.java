@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -58,16 +61,20 @@ public class KycAddressStep extends Fragment {
     AutoCompleteTextView state, city, country;
     String name, phoneNumber,  gender, dateOfbirth, email, relation;
 
-
-    public KycAddressStep(String name, String phoneNumber, String gen, String dateOfbirth, String email, String rela) {
+    public KycAddressStep() {
         // Required empty public constructor
-        this.name=name;
-        this.phoneNumber=phoneNumber;
-        gender=gen;
-        this.dateOfbirth=dateOfbirth;
-        this.email=email;
-        relation=rela;
+
     }
+
+//    public KycAddressStep(String name, String phoneNumber, String gen, String dateOfbirth, String email, String rela) {
+//        // Required empty public constructor
+//        this.name=name;
+//        this.phoneNumber=phoneNumber;
+//        gender=gen;
+//        this.dateOfbirth=dateOfbirth;
+//        this.email=email;
+//        relation=rela;
+//    }
 
 
 
@@ -76,7 +83,16 @@ public class KycAddressStep extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_kyc_address_step, container, false);
+        NavController navController = NavHostFragment.findNavController(this);
+
         apiInit();
+     //   String Payment_Req = OverviewArgs.fromBundle(getArguments()).getPaymentRequest();
+        name=KycAddressStepArgs.fromBundle(getArguments()).getName();
+        phoneNumber= KycAddressStepArgs.fromBundle(getArguments()).getPhoneNumber();
+        gender= KycAddressStepArgs.fromBundle(getArguments()).getGender();
+        dateOfbirth= KycAddressStepArgs.fromBundle(getArguments()).getDateOfBirth();
+        email= KycAddressStepArgs.fromBundle(getArguments()).getEmail();
+        relation= KycAddressStepArgs.fromBundle(getArguments()).getRelation();
 
         Log.i("num",phoneNumber );
         button =view. findViewById(R.id.proceed_addr_button);
@@ -106,7 +122,6 @@ public class KycAddressStep extends Fragment {
 
         button = view.findViewById(R.id.proceed_addr_button);
         button.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 String houseNo=house.getText().toString().trim();
@@ -151,18 +166,20 @@ public class KycAddressStep extends Fragment {
 //                    }
 //                });
 
+                NavDirections nav= KycAddressStepDirections.actionKycAddressStepToPanDetails(name,phoneNumber,gender,dateOfbirth,email,relation,houseNo,pincodes,states,citys,countrys);
+                navController.navigate(nav);
 
-                    Fragment fragment = new PanDetails(name, phoneNumber, gender, dateOfbirth, email, relation, houseNo, pincodes, states, citys, countrys);
-                    FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
-                            R.anim.slide_in,  // enter
-                            R.anim.fade_out,  // exit
-                            R.anim.fade_in,   // popEnter
-                            R.anim.slide_out  // popExit
-                    );
-                    fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+//                    Fragment fragment = new PanDetails(name, phoneNumber, gender, dateOfbirth, email, relation, houseNo, pincodes, states, citys, countrys);
+//                    FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
+//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
+//                            R.anim.slide_in,  // enter
+//                            R.anim.fade_out,  // exit
+//                            R.anim.fade_in,   // popEnter
+//                            R.anim.slide_out  // popExit
+//                    );
+//                    fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
+//                    fragmentTransaction.addToBackStack(null);
+//                    fragmentTransaction.commit();
             }
         });
 

@@ -30,6 +30,8 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
     public Context cxt;
     HistoryResponse historyResponse;
 
+
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView category;
         public RecyclerView childRecyclerView;
@@ -40,6 +42,7 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
 
             category = itemView.findViewById(R.id.standard_tv);
             childRecyclerView = itemView.findViewById(R.id.Child_RV);
+
 
         }
     }
@@ -81,6 +84,7 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
         }
         Set values = new HashSet(standard);
         Log.i("kishu", values.toString());
+        int size = historyResponse.transactions.size();
 
         for (int i = 0; i <= values.size() - 1; i++) ;
         {
@@ -88,8 +92,10 @@ public class ParentRecyclerViewAdapter extends RecyclerView.Adapter<ParentRecycl
                 if (!parentModelArrayList.get(position).getMonth().equals(historyResponse.transactions.get(j).month)) {
 
                 } else {
-                    arrayList.add(new ChildModel(historyResponse.transactions.get(j).note,historyResponse.transactions.get(j).date,
-                            historyResponse.transactions.get(j).amount));
+                    arrayList.add(new ChildModel(historyResponse.transactions.get(j).note,historyResponse.transactions.get(j).date,"₹ "+
+                            historyResponse.transactions.get(j).amount,historyResponse.transactions.get(j).invoice,
+                            historyResponse.transactions.get(j).paymentDate,historyResponse.transactions.get(j).payment_method
+                    ,historyResponse.transactions.get(j).paymentId));
 //)
 
                 }

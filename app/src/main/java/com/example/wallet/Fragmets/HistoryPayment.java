@@ -3,6 +3,7 @@ package com.example.wallet.Fragmets;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,21 +12,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.wallet.Adapters.GetFilterWalletResponse;
 import com.example.wallet.Adapters.ParentRecyclerViewAdapter;
 import com.example.wallet.Api.ApiClient;
 import com.example.wallet.Api.HistoryResponse;
 import com.example.wallet.Api.LoginService;
-import com.example.wallet.Models.ChildModel;
 import com.example.wallet.Models.HistoryModel;
 import com.example.wallet.Models.ParentModel;
-import com.example.wallet.Models.PaymentRequest;
 import com.example.wallet.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,15 +42,17 @@ public class HistoryPayment extends Fragment {
     LinearLayoutManager parentLayoutManager;
     ArrayList<String> stdName;
     HistoryResponse historyResponse;
+    NavController navController;
+    GetFilterWalletResponse getFilterWalletResponse;
     private static final String TAG = "HistoryPaymentFragment";
 
-
+    TextView count;
     ParentRecyclerViewAdapter adapter;
 
     ArrayList<ParentModel> card;
    ArrayList <HistoryModel> historyModel;
    ImageView back;
-
+    TextView ch;
 
     public HistoryPayment() {
         // Required empty public constructor
@@ -65,6 +66,9 @@ public class HistoryPayment extends Fragment {
         view = inflater.inflate(R.layout.fragment_history_payment, container, false);
         apiInit();
         standard();
+        count=view.findViewById(R.id.toolbarTitlePayHistory);
+        ch=view.findViewById(R.id.textView24);
+
 
         // for back
         back=view.findViewById(R.id.back);
@@ -74,6 +78,8 @@ public class HistoryPayment extends Fragment {
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
+        parentRecyclerView = view.findViewById(R.id.rv_parent);
+
         return view;
     }
     public void apiInit() {
@@ -93,9 +99,11 @@ public class HistoryPayment extends Fragment {
                     Toast.makeText(getActivity(), response.code(), Toast.LENGTH_LONG).show();
                     Log.i("TAG", "onResponseFailure: ");
                 }
-            historyResponse =response.body();
                 historyResponse = response.body();
+                int size = historyResponse.transactions.size();
+
                 ArrayList<String> standard=new ArrayList();
+                count.setText("Payment History (" + size + ")");
                 for(int i=0;i<=historyResponse.transactions.size()-1;i++) {
                     standard.add(historyResponse.transactions.get(i).month);
                 }
@@ -103,6 +111,7 @@ public class HistoryPayment extends Fragment {
                 Log.i("tag",values.toString());
                 ArrayList<String> uni=new ArrayList<>(values);
                 historyModel =new ArrayList<>();
+
                 for (int i = 0; i <= values.size()-1; i++) {
                     historyModel.add(new HistoryModel(uni.get(i)));
                 }
@@ -120,7 +129,6 @@ public class HistoryPayment extends Fragment {
     }
 
     public void buildRecyclerViewAllStudent() {
-        parentRecyclerView = view.findViewById(R.id.rv_parent);
         parentRecyclerView.setHasFixedSize(true);
         parentLayoutManager = new LinearLayoutManager(getContext());
         parentRecyclerView.setLayoutManager(parentLayoutManager);

@@ -10,60 +10,158 @@
         android:name="com.example.wallet.Fragmets.HomePage"
         android:label="fragment_home_page"
         tools:layout="@layout/fragment_home_page" >
-        <action
-            android:id="@+id/action_homePage_to_completeKycDetails2"
-            app:destination="@id/completeKycDetails2" />
+
         <action
             android:id="@+id/action_homePage_to_fee"
-            app:destination="@id/fee" />
+            app:destination="@id/fee"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_homePage_to_completeKycDetails"
+            app:destination="@id/completeKycDetails"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_homePage_to_detailsOfCashFree"
-            app:destination="@id/detailsOfCashFree" />
+            app:destination="@id/detailsOfCashFree"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/slide_out"
+            app:popExitAnim="@anim/to_left" />
     </fragment>
     <fragment
-        android:id="@+id/completeKycDetails2"
+        android:id="@+id/completeKycDetails"
         android:name="com.example.wallet.Fragmets.CompleteKycDetails"
-        android:label="fragment_complete_kyc_details2"
+        android:label="fragment_complete_kyc_details"
         tools:layout="@layout/fragment_complete_kyc_details" >
+
+
         <action
-            android:id="@+id/action_completeKycDetails2_to_kycAddressStep2"
-            app:destination="@id/kycAddressStep2" />
+            android:id="@+id/action_completeKycDetails_to_kycAddressStep"
+            app:destination="@id/kycAddressStep"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/from_right"
+            app:popEnterAnim="@anim/slide_out"
+            app:popExitAnim="@anim/from_left" />
     </fragment>
     <fragment
-        android:id="@+id/kycAddressStep2"
+        android:id="@+id/kycAddressStep"
         android:name="com.example.wallet.Fragmets.KycAddressStep"
         android:label="fragment_kyc_address_step"
         tools:layout="@layout/fragment_kyc_address_step" >
+
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
+        <argument
+            android:name="gender"
+            app:argType="string" />
+        <argument
+            android:name="dateOfBirth"
+            app:argType="string" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="relation"
+            app:argType="string" />
         <action
-            android:id="@+id/action_kycAddressStep2_to_panDetails"
-            app:destination="@id/panDetails" />
+            android:id="@+id/action_kycAddressStep_to_panDetails"
+            app:destination="@id/panDetails"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/slide_out"
+            app:popExitAnim="@anim/from_left" />
     </fragment>
     <fragment
         android:id="@+id/panDetails"
         android:name="com.example.wallet.Fragmets.PanDetails"
         android:label="fragment_pan_details"
         tools:layout="@layout/fragment_pan_details" >
+
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
+        <argument
+            android:name="gender"
+            app:argType="string" />
+        <argument
+            android:name="dateOfBirth"
+            app:argType="string" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="relation"
+            app:argType="string" />
+        <argument
+            android:name="houseNo"
+            app:argType="string" />
+        <argument
+            android:name="pincodes"
+            app:argType="string" />
+        <argument
+            android:name="states"
+            app:argType="string" />
+        <argument
+            android:name="city"
+            app:argType="string" />
+        <argument
+            android:name="country"
+            app:argType="string" />
         <action
             android:id="@+id/action_panDetails_to_homePage"
-            app:destination="@id/homePage" />
+            app:destination="@id/homePage"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/fade_out"
+            app:popExitAnim="@anim/from_right" />
     </fragment>
     <fragment
         android:id="@+id/fee"
         android:name="com.example.wallet.Fragmets.Fee"
         android:label="fragment_fee"
         tools:layout="@layout/fragment_fee" >
-        <action
-            android:id="@+id/action_fee_to_historyPayment"
-            app:destination="@id/historyPayment" />
+
         <action
             android:id="@+id/action_fee_to_paymentRequestFragment"
-            app:destination="@id/paymentRequestFragment" />
+            app:destination="@id/paymentRequestFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/from_right"
+            app:popEnterAnim="@anim/slide_out"
+            app:popExitAnim="@anim/from_left" />
+        <action
+            android:id="@+id/action_fee_to_historyPayment"
+            app:destination="@id/historyPayment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/slide_out"
+            app:popExitAnim="@anim/from_left" />
     </fragment>
     <fragment
         android:id="@+id/historyPayment"
         android:name="com.example.wallet.Fragmets.HistoryPayment"
         android:label="fragment_history_payment"
-        tools:layout="@layout/fragment_history_payment" />
+        tools:layout="@layout/fragment_history_payment" >
+
+        <action
+            android:id="@+id/action_historyPayment_to_viewReceiptActivity"
+            app:destination="@id/viewReceiptActivity"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/from_left"
+            app:popEnterAnim="@anim/slide_out"
+            app:popExitAnim="@anim/from_right" />
+    </fragment>
     <fragment
         android:id="@+id/paymentRequestFragment"
         android:name="com.example.wallet.Fragmets.PaymentRequestFragment"
@@ -73,5 +171,32 @@
         android:id="@+id/detailsOfCashFree"
         android:name="com.example.wallet.Fragmets.DetailsOfCashFree"
         android:label="activity_details_of_cash_free"
-        tools:layout="@layout/activity_details_of_cash_free" />
+        tools:layout="@layout/activity_details_of_cash_free" >
+        <argument
+            android:name="order"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="amount"
+            app:argType="string" />
+        <argument
+            android:name="position"
+            app:argType="integer" />
+    </activity>
+    <activity
+        android:id="@+id/viewReceiptActivity"
+        android:name="com.example.wallet.ViewReceiptActivity"
+        android:label="ViewReceiptActivity" />
+    <fragment
+        android:id="@+id/detailsOfPayment"
+        android:name="com.example.wallet.Fragmets.DetailsOfPayment"
+        android:label="fragment_details_of_payment"
+        tools:layout="@layout/fragment_details_of_payment" />
+    <fragment
+        android:id="@+id/remainingKYC"
+        android:name="com.example.wallet.Fragmets.RemainingKYC"
+        android:label="fragment_remaining_k_y_c"
+        tools:layout="@layout/fragment_remaining_k_y_c" />
 </navigation>

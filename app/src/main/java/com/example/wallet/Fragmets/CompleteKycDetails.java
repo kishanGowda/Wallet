@@ -13,6 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -90,6 +93,8 @@ View view;
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_complete_kyc_details, container, false);
         apiInIt();
+        NavController navController = NavHostFragment.findNavController(this);
+
 
 
         button = view.findViewById(R.id.proceed_button);
@@ -235,17 +240,19 @@ View view;
                 String rela=relation.getText().toString();
 
                 procced();
-                Fragment fragment = new KycAddressStep(name,fullNumber+phoneNumber,gen,dateOfbirth,email,rela);
-                FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
-                        R.anim.slide_in,  // enter
-                        R.anim.fade_out,  // exit
-                        R.anim.fade_in,   // popEnter
-                        R.anim.slide_out  // popExit
-                );
-                fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                NavDirections nav= CompleteKycDetailsDirections.actionCompleteKycDetailsToKycAddressStep(name,fullNumber+phoneNumber,gen,dateOfbirth,email,rela);
+                navController.navigate(nav);
+//                Fragment fragment = new KycAddressStep(name,fullNumber+phoneNumber,gen,dateOfbirth,email,rela);
+//                FragmentManager fragmentManager = ((FragmentActivity)getActivity()).getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
+//                        R.anim.slide_in,  // enter
+//                        R.anim.fade_out,  // exit
+//                        R.anim.fade_in,   // popEnter
+//                        R.anim.slide_out  // popExit
+//                );
+//                fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
             }
         });
 

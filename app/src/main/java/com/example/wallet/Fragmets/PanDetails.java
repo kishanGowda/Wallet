@@ -1,6 +1,7 @@
 package com.example.wallet.Fragmets;
 
 import static android.app.Activity.RESULT_OK;
+import static android.graphics.Typeface.BOLD;
 
 
 import android.app.AlertDialog;
@@ -8,6 +9,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,7 +19,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -69,6 +75,8 @@ public class PanDetails extends Fragment {
     JSONObject json;
     final String pan_pattern = "(([A-Za-z]{5})([0-9]{4})([a-zA-Z]))";
     Boolean aadharfor=false,driving=false,passport=false,voter=false;
+    TextView aadharforr,drivingg,passportt,voter1;
+
     AlertDialog alertDialog;
     String BASE_URL_FOR_IMAGES = "https://s3.ap-south-1.amazonaws.com/test.files.classroom.digital/";
 
@@ -93,7 +101,13 @@ public class PanDetails extends Fragment {
     ImageView deleteFront,deleteBack,deletePan;
     String panKey,frontKey,backKey;
     Boolean panCheck=false,frontCheck=false,backCheck=false;
+    TextView aadhar,voterr,drivingr,passportr,a1,b1, c1, d1;
+    ImageView aadhar_check,passport_check,voter_check,driving_check;
     ImageView backing;
+    public PanDetails() {
+
+
+    }
 
 
     public PanDetails(String name, String phoneNumber, String gender,
@@ -121,6 +135,20 @@ public class PanDetails extends Fragment {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_pan_details, container, false);
         apiInIt();
+        NavController navController = NavHostFragment.findNavController(this);
+
+        name= KycAddressStepArgs.fromBundle(getArguments()).getName();
+        phoneNumber= PanDetailsArgs.fromBundle(getArguments()).getPhoneNumber();
+        gender= PanDetailsArgs.fromBundle(getArguments()).getGender();
+        dateOfbirth= PanDetailsArgs.fromBundle(getArguments()).getDateOfBirth();
+        email= PanDetailsArgs.fromBundle(getArguments()).getEmail();
+        relation= PanDetailsArgs.fromBundle(getArguments()).getRelation();
+        houseNo= PanDetailsArgs.fromBundle(getArguments()).getHouseNo();
+        pincodes= PanDetailsArgs.fromBundle(getArguments()).getPincodes();
+        states= PanDetailsArgs.fromBundle(getArguments()).getStates();
+        citys= PanDetailsArgs.fromBundle(getArguments()).getCity();
+        countrys= PanDetailsArgs.fromBundle(getArguments()).getCountry();
+
         button=view.findViewById(R.id.proceed_button);
         proof=view.findViewById(R.id.gender_);
         frontText=view.findViewById(R.id.front_text);
@@ -186,21 +214,21 @@ public class PanDetails extends Fragment {
 
         //address format
 
-        try {
-
-            json = new JSONObject();
-            json.put("city",citys);
-            json.put("state",states);
-            json.put("pincode",pincodes);
-            json.put("locality",houseNo);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        message = json.toString();
-
-        Log.i("msg", message);
+//        try {
+//
+//            json = new JSONObject();
+//            json.put("city",citys);
+//            json.put("state",states);
+//            json.put("pincode",pincodes);
+//            json.put("locality",houseNo);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        message = json.toString();
+//
+//        Log.i("msg", message);
 
         //back fragment
 
@@ -257,8 +285,8 @@ public class PanDetails extends Fragment {
                 Log.i("gender", gender);
                 Log.i("dateOfbirth", dateOfbirth);
                 Log.i("email", email);
-                Log.i("message", message);
-                Log.i("pannumber",pannumber );
+                //Log.i("message", message);
+              //  Log.i("pannumber",pannumber );
                 Log.i("panKey", panKey);
 
 
@@ -288,17 +316,19 @@ public class PanDetails extends Fragment {
                                     @Override
                                     public void onClick(View v) {
                                         dialog.dismiss();
-                                        Fragment fragment = new HomePage();
-                                        FragmentManager fragmentManager = ((FragmentActivity) getActivity()).getSupportFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
-                                                R.anim.slide_in,  // enter
-                                                R.anim.fade_out,  // exit
-                                                R.anim.fade_in,   // popEnter
-                                                R.anim.slide_out  // popExit
-                                        );
-                                        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
-                                        fragmentTransaction.addToBackStack(null);
-                                        fragmentTransaction.commit();
+                                        NavDirections nav= PanDetailsDirections.actionPanDetailsToHomePage();
+                                        navController.navigate(nav);
+//                                        Fragment fragment = new HomePage();
+//                                        FragmentManager fragmentManager = ((FragmentActivity) getActivity()).getSupportFragmentManager();
+//                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(
+//                                                R.anim.slide_in,  // enter
+//                                                R.anim.fade_out,  // exit
+//                                                R.anim.fade_in,   // popEnter
+//                                                R.anim.slide_out  // popExit
+//                                        );
+//                                        fragmentTransaction.replace(R.id.fragmentContainerView, fragment);
+//                                        fragmentTransaction.addToBackStack(null);
+//                                        fragmentTransaction.commit();
                                     }
                                 });
                                 dialog.show();
@@ -331,10 +361,22 @@ public class PanDetails extends Fragment {
                 bottomSheetDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 bottomSheetDialog.setContentView(sheetView);
                 bottomSheetDialog.setCanceledOnTouchOutside(true);
-                TextView aadhar=(TextView) bottomSheetDialog.findViewById(R.id.aadhar_tv);
-                TextView voterr=(TextView) bottomSheetDialog.findViewById(R.id.voter_tv);
-                TextView drivingr=(TextView) bottomSheetDialog.findViewById(R.id.driving_tv);
-                TextView passportr=(TextView) bottomSheetDialog.findViewById(R.id.passport_tv);
+                 aadhar=(TextView) bottomSheetDialog.findViewById(R.id.aadhar_tv);
+                 voterr=(TextView) bottomSheetDialog.findViewById(R.id.voter_tv);
+                 drivingr=(TextView) bottomSheetDialog.findViewById(R.id.driving_tv);
+                 passportr=(TextView) bottomSheetDialog.findViewById(R.id.passport_tv);
+
+                aadharforr=(TextView) bottomSheetDialog.findViewById(R.id.aadhar_tvv);
+                voter1=(TextView) bottomSheetDialog.findViewById(R.id.voter_tvv);
+                drivingg=(TextView) bottomSheetDialog.findViewById(R.id.driving_tvv);
+                passportt=(TextView) bottomSheetDialog.findViewById(R.id.passport_tvv);
+
+                aadhar_check=(ImageView)bottomSheetDialog.findViewById(R.id.aadhar_check);
+                passport_check=(ImageView)bottomSheetDialog.findViewById(R.id.pasport_check);
+                voter_check=(ImageView)bottomSheetDialog.findViewById(R.id.voter_check);
+                driving_check=(ImageView)bottomSheetDialog.findViewById(R.id.driving_check);
+
+
                 TextView a1=(TextView) bottomSheetDialog.findViewById(R.id.aadhar_tv);
                 TextView b1=(TextView) bottomSheetDialog.findViewById(R.id.voter_tv);
                 TextView c1=(TextView) bottomSheetDialog.findViewById(R.id.passport_tv);
@@ -344,6 +386,20 @@ public class PanDetails extends Fragment {
                     @Override
                     public void onClick(View view) {
                         proof.setText("Aadhar");
+
+                        aadhar.setTypeface(Typeface.DEFAULT_BOLD);
+                        drivingr.setTypeface(Typeface.DEFAULT);
+                        passportr.setTypeface(Typeface.DEFAULT);
+                        voterr.setTypeface(Typeface.DEFAULT);
+
+                        aadhar_check.setVisibility(View.VISIBLE);
+                        passport_check.setVisibility(View.GONE);
+                        voter_check.setVisibility(View.GONE);
+                        driving_check.setVisibility(View.GONE);
+
+
+
+
                         addharNumber.setText("Aadhar Number");
                         frontText.setText("Aadhar front");
                         backText.setText("Aadhar Back");
@@ -352,7 +408,7 @@ public class PanDetails extends Fragment {
                         driving=false;
                         passport=false;
                         voter=false;
-                        bottomSheetDialog.dismiss();
+                        //bottomSheetDialog.dismiss();
 
                     }
 
@@ -361,6 +417,14 @@ public class PanDetails extends Fragment {
                     @Override
                     public void onClick(View view) {
                         proof.setText("Voter Id");
+                        voterr.setTypeface(Typeface.DEFAULT_BOLD);
+                        aadhar.setTypeface(Typeface.DEFAULT);
+                        passportr.setTypeface(Typeface.DEFAULT);
+                        drivingr.setTypeface(Typeface.DEFAULT);
+                        aadhar_check.setVisibility(View.GONE);
+                        passport_check.setVisibility(View.GONE);
+                        voter_check.setVisibility(View.VISIBLE);
+                        driving_check.setVisibility(View.GONE);
                         addharNumber.setText("Voter-ID Number");
                         frontText.setText("Voter front");
                         backText.setText("Voter Back");
@@ -369,7 +433,7 @@ public class PanDetails extends Fragment {
                         driving=false;
                         passport=false;
                         voter=true;
-                        bottomSheetDialog.dismiss();
+                        //bottomSheetDialog.dismiss();
                     }
                 });
 
@@ -377,6 +441,14 @@ public class PanDetails extends Fragment {
                     @Override
                     public void onClick(View view) {
                         proof.setText("Passport");
+                        passportr.setTypeface(Typeface.DEFAULT_BOLD);
+                        aadhar.setTypeface(Typeface.DEFAULT);
+                        drivingr.setTypeface(Typeface.DEFAULT);
+                        voterr.setTypeface(Typeface.DEFAULT);
+                        aadhar_check.setVisibility(View.GONE);
+                        passport_check.setVisibility(View.VISIBLE);
+                        voter_check.setVisibility(View.GONE);
+                        driving_check.setVisibility(View.GONE);
                         addharNumber.setText("PassPort Number");
                         addharNumber.setHint("Enter passport number");
                         frontText.setText("passport front");
@@ -385,7 +457,7 @@ public class PanDetails extends Fragment {
                         driving=false;
                         passport=true;
                         voter=false;
-                        bottomSheetDialog.dismiss();
+                        //bottomSheetDialog.dismiss();
 
                     }
                 });
@@ -394,6 +466,14 @@ public class PanDetails extends Fragment {
                     @Override
                     public void onClick(View view) {
                         proof.setText("Driving licence");
+                        drivingr.setTypeface(Typeface.DEFAULT_BOLD);
+                        aadhar.setTypeface(Typeface.DEFAULT);
+                        passportr.setTypeface(Typeface.DEFAULT);
+                        voterr.setTypeface(Typeface.DEFAULT);
+                        aadhar_check.setVisibility(View.GONE);
+                        passport_check.setVisibility(View.GONE);
+                        voter_check.setVisibility(View.GONE);
+                        driving_check.setVisibility(View.VISIBLE);
                         addharNumber.setText("driving-ID Number");
                         documentNumber.setHint("Enter driving Licence number");
                         frontText.setText("driving front");
@@ -402,7 +482,7 @@ public class PanDetails extends Fragment {
                         driving=true;
                         passport=false;
                         voter=false;
-                        bottomSheetDialog.dismiss();
+                        //bottomSheetDialog.dismiss();
                     }
                 });
 

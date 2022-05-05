@@ -155,23 +155,24 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
-                        android:id="@+id/gender_"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:padding="10dp"
-                        app:layout_constraintTop_toBottomOf="@+id/gender_tv"
-                        android:focusable="false"
-                        android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
-                        android:layout_marginTop="1dp"
-                        android:layout_marginHorizontal="18dp"
-                        android:background="@drawable/stroke_box"
-                        android:text="Aadhaar"
-                        android:textColor="@color/black"
-                        android:textSize="14dp"
+                    android:id="@+id/gender_"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/stroke_box"
+                    android:drawableRight="@drawable/ic_baseline_arrow_drop_down_24"
+                    android:focusable="false"
+                    android:padding="10dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Aadhaar"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    app:layout_constraintTop_toBottomOf="@+id/gender_tv"
 
 
-                        />
+                    />
 
 <!--                    <ImageView-->
 <!--                        android:id="@+id/option_for_proof"-->
